@@ -1,0 +1,201 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "CardLayoutExample",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1041950320 { 
+   	label=CardLayoutExample
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   CardLayoutExample1041950320[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CardLayoutExample</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- getCurrentCardName(container: Container): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ main(args: String[])</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1059157114 { 
+   	label=Passenger
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Passenger1059157114[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Passenger</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   bookingRefCode: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   flightCode: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lastName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   passCheckOrNot: boolean [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ checkOne(lastname: String, flightcode: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># findPass(pass: String, ch: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" ># readNameAndCode(): String[]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_2055789012 { 
+   	label=FlightCheckInSystem
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   FlightCheckInSystem2055789012[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)FlightCheckInSystem</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   flightList: List&lt;Flight&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   passengerList: List&lt;Passenger&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ checkIn(lastname: String, Code: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ main(argvs: String[])</TD></TR>
+<TR><TD ALIGN="LEFT" >+ readFlights(csvFilePath: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ readPassengers(csvFilePath: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_2107011216 { 
+   	label=Flight
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Flight2107011216[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Flight</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   carrier: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   dest: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   extraVolumeFee: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   extraWeightFee: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   flightCode: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   flightNum: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   maxFlightVolume: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   maxFlightWeight: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   maxbaggageVolume: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   maximumBaggageWeight: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   maximumPassengers: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   numOfPassengers: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   passengerList: List&lt;Passenger&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># calculateFee(width: double, height: double, length: double, weight: double): double</TD></TR>
+<TR><TD ALIGN="LEFT" ># readFromCSV(csvFilePath: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+Flight2107011216 -> Passenger1059157114[label="passengerList
+[0..*]"];
+FlightCheckInSystem2055789012 -> Flight2107011216[label="flightList
+[0..*]"];
+FlightCheckInSystem2055789012 -> Passenger1059157114[label="passengerList
+[0..*]"];
+    
+}
+@enduml
