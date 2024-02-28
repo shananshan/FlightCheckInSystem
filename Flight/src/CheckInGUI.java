@@ -14,8 +14,8 @@ public class CheckInGUI extends JFrame{
         public CheckInGUI() throws IOException {
         FlightCheckInSystem fcs = new FlightCheckInSystem();
         try {
-            fcs.readPassengers("D:\\Collage\\SeniorYear\\AdvancedSoftware\\F21CS-FlightCheckInSystem_1\\Flight\\PassengerBookings.csv");
-            fcs.readFlights("D:\\Collage\\SeniorYear\\AdvancedSoftware\\F21CS-FlightCheckInSystem_1\\Flight\\FlightDetail.csv");
+            fcs.readPassengers("Passenger Bookings.csv");
+            fcs.readFlights("Flight Detail.csv");
          }catch(FileNotFoundException e){
           e.printStackTrace();
          }catch(IOException e) {
@@ -24,26 +24,32 @@ public class CheckInGUI extends JFrame{
 
         JFrame frame = new JFrame("Flight Check-In System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
+        frame.setSize(500, 500);
+        frame.setLocationRelativeTo(null);
+        
 
         CardLayout cardLayout = new CardLayout();
         JPanel cardPanel = new JPanel(cardLayout);
 
         // page1  ask for the input part
-        JPanel card1 = new JPanel(new FlowLayout(0));
+        JPanel card1 = new JPanel(new GridLayout(3, 1)); // 使用GridLayout使组件垂直居中
         card1.setName("Card1");
-        card1.setLayout(new GridLayout(3, 1));
         JTextField textField1 = new JTextField(15); // 设置文本框的宽度
         JTextField textField2 = new JTextField(15);
+        // 创建包含标题的面板，使用FlowLayout居中对齐
         JPanel welcomeTitle = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel tname = new JLabel("Check In Here!");
+        tname.setFont(new Font("Serif", Font.BOLD, 20)); // 设置文字大小
         welcomeTitle.add(tname);
+        // 创建输入姓氏的面板，使用FlowLayout居中对齐
         JPanel inputLastName = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        inputLastName.add(new JLabel("Input Last Name:     ")); // 添加标签来标识输入框
+        inputLastName.add(textField1); // 添加文本框
+        // 创建输入预定码的面板，使用FlowLayout居中对齐
         JPanel inputBookingCode = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        inputLastName.add(new JLabel("Input Last Name:     ")); // 可以添加标签来标识输入框
-        inputLastName.add(textField1);
         inputBookingCode.add(new JLabel("Input Booking code:"));
-        inputBookingCode.add(textField2);
+        inputBookingCode.add(textField2); // 添加文本框
+        // 将面板添加到card1
         card1.add(welcomeTitle);
         card1.add(inputLastName);
         card1.add(inputBookingCode);
@@ -70,12 +76,14 @@ public class CheckInGUI extends JFrame{
         JPanel [] baggs = new JPanel[4];
         JTextField[] filedBags = new JTextField[4];
         String[] names = {"Weight", "Height", "Length", "Width"};
+        String[] units = {"KG", "CM", "CM", "CM"}; // 单位数组
         for(int i=0; i<4; ++i){
-            baggs[i] = new JPanel();
-            baggs[i].add(new JLabel(names[i] + ":"));
-            filedBags[i] = new JTextField(10);
-            baggs[i].add(filedBags[i]);
-            inputBagg.add(baggs[i]);
+        	baggs[i] = new JPanel();
+        	baggs[i].add(new JLabel(names[i] + ":"));
+        	filedBags[i] = new JTextField(10);
+        	baggs[i].add(filedBags[i]);
+        	baggs[i].add(new JLabel(units[i]));
+        	inputBagg.add(baggs[i]);
         }
         card2.add(BaggageTit);
         card2.add(PassDetail);
@@ -168,6 +176,11 @@ public class CheckInGUI extends JFrame{
         	    checkinInfoD[2] = fee;
                 }
                 if(Objects.equals(currentCard, "Card3")) {
+                	textField1.setText("");
+                    textField2.setText("");
+                    for(int i=0; i<4; ++i){
+                        filedBags[i].setText("");
+                    }
                 	if(e.getActionCommand().equals("Exit")) {
                 		System.exit(0);
                 	}
@@ -212,6 +225,11 @@ public class CheckInGUI extends JFrame{
 //                	if(e.getActionCommand().equals("transaction complete")) {
 //                		System.exit(0);
 //                	}
+                	textField1.setText("");
+                    textField2.setText("");
+                    for(int i=0; i<4; ++i){
+                        filedBags[i].setText("");
+                    }
                     card4.remove(switchButton);
                     JButton successButton = new JButton("transaction complete");
                     JButton failureButton = new JButton("transaction incomplete");
@@ -258,4 +276,6 @@ public class CheckInGUI extends JFrame{
         }
         return checkinpassengerList;
     }
+}
+
 }
