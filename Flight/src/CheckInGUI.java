@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class CheckInGUI extends JFrame{
-	double fee;
 	public static String[] checkinInfoS = new String[2];
         public static Double[] checkinInfoD = new Double[3];
         public CheckInGUI() throws IOException {
@@ -158,28 +157,34 @@ public class CheckInGUI extends JFrame{
                 if(Objects.equals(currentCard, "Card2")) {
                     Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
                     Flight f = fcs.getFlight(p.getFlightCode());
-                    double w, h, l, wi;
-                    w = Double.valueOf(filedBags[0].getText());
-                    h = Double.valueOf(filedBags[1].getText());
-                    l = Double.valueOf(filedBags[2].getText());
-                    wi = Double.valueOf(filedBags[3].getText());
-                    fee = f.calculateFee(w,h,l,wi);
-                    labels[0].setText(name2[0] + ": " + p.name);
-                    labels[1].setText(name2[1] + ": " + p.flightCode);
-                    labels[2].setText(name2[2] + ": " + p.bookingRefCode);
-                    labels[3].setText(name2[3] + ": " + Double.toString(fee));
-                    if(fee == 0) {
-                    	switchButton.setText("Exit");
-                    	cardLayout.next(cardPanel);
-                    }
-                    else {
-                        card4.add(new JLabel("Please pay your excess baggage fee:" + fee));
-                        switchButton.setText("Pay");
-                        cardLayout.show(cardPanel, "Card 4");
-                    }
-                checkinInfoD[0] = w*h*l;
-        	    checkinInfoD[1] = wi;
-        	    checkinInfoD[2] = fee;
+                    try {
+	                    double w, h, l, wi;
+	                    w = Double.valueOf(filedBags[0].getText());
+	                    h = Double.valueOf(filedBags[1].getText());
+	                    l = Double.valueOf(filedBags[2].getText());
+	                    wi = Double.valueOf(filedBags[3].getText());
+	                    double fee = f.calculateFee(w,h,l,wi);
+	                    labels[0].setText(name2[0] + ": " + p.name);
+	                    labels[1].setText(name2[1] + ": " + p.flightCode);
+	                    labels[2].setText(name2[2] + ": " + p.bookingRefCode);
+	                    labels[3].setText(name2[3] + ": " + Double.toString(fee));
+	                    if(fee == 0) {
+	                    	switchButton.setText("Exit");
+	                    	cardLayout.next(cardPanel);
+	                    }
+	                    else {
+	                        card4.add(new JLabel("Please pay your excess baggage fee:" + fee));
+	                        switchButton.setText("Pay");
+	                        cardLayout.show(cardPanel, "Card 4");
+	                    }
+	                checkinInfoD[0] = w*h*l;
+	        	    checkinInfoD[1] = wi;
+	        	    checkinInfoD[2] = fee;
+	                } catch (NumberFormatException nfe) {
+	                    JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight.");
+	                    return;
+	                }
+
                 }
                 if(Objects.equals(currentCard, "Card3")) {
                 	//reset card 1
