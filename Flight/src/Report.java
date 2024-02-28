@@ -17,7 +17,7 @@ public class Report {
             Map<String, FlightStats> flightStatsMap = new HashMap<>();
 
             for (CheckInPassenger checkin : passengerCheckins) {
-                String flightNumber = checkin.getNum();
+                String flightNumber = checkin.getFlightCode();
                 double weight = checkin.getWeight();
                 double size = checkin.getSize();
                 double fee = checkin.getFee();
