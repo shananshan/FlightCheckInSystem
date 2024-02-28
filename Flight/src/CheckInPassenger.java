@@ -2,11 +2,7 @@ import java.util.ArrayList;
 
 public class CheckInPassenger {
 	// flight code, first name, surname, size, weight, fee
-	
-	/*size = Luggage.sizeInput();
-	 * p.flightcode
-	 * p.name
-	 * */
+
 	private String flightCode;
     private String name;
     private double size;
