@@ -22,7 +22,7 @@ public class Report {
                 double size = checkin.getSize();
                 double fee = checkin.getFee();
 
-                // ����ú���Ų�������ͳ���У����ӽ�ͳ��
+                // If the flightNumber does not exist in the Map, add it
                 if (!flightStatsMap.containsKey(flightNumber)) {
                     flightStatsMap.put(flightNumber, new FlightStats());
                 }
