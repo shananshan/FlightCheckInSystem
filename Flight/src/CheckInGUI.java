@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class CheckInGUI extends JFrame{
@@ -245,7 +246,7 @@ public class CheckInGUI extends JFrame{
         }
         return null;
     }
-    public static AbstractList<CheckInPassenger> addCheckPassenger(){
+    public static ArrayList<CheckInPassenger> addCheckPassenger(){
         ArrayList<CheckInPassenger> checkinpassengerList = CheckInPassenger.checkinPassengerList(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
         for (CheckInPassenger checkinpassenger : checkinpassengerList) {
             System.out.print(checkinpassenger.getName()+", ");
