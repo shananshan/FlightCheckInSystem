@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -113,6 +114,11 @@ public class CheckInGUI extends JFrame{
         card4.setName("Card4");
         JPanel pay = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pay.setLayout(new GridLayout(2, 2));
+      
+        
+       
+       
+        
 
 
         cardPanel.add(card1, "Card 1");
@@ -145,9 +151,10 @@ public class CheckInGUI extends JFrame{
                         fcode.setText("Flight Code:" + p.flightCode);
                         fbcode.setText("Booking Code:" + p.bookingRefCode);
                         switchButton.setText("Confirm");
-			checkinInfoS[0] = p.name;
-	                checkinInfoS[1] = p.flightCode;
+                        checkinInfoS[0] = p.name;
+                        checkinInfoS[1] = p.flightCode;
                     }
+                    cardLayout.next(cardPanel);
                 }
                 if(Objects.equals(currentCard, "Card2")) {
                     Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
@@ -164,14 +171,14 @@ public class CheckInGUI extends JFrame{
                     labels[3].setText(name2[3] + ": " + Double.toString(fee));
                     if(fee == 0) {
                     	switchButton.setText("Exit");
-//                    	cardLayout.show(card3, "Card 3");
+                    	cardLayout.next(cardPanel);
                     }
                     else {
                         card4.add(new JLabel("Please pay your excess baggage fee:" + fee));
-                        switchButton.setText("Pay your excess baggage fee");
-//                        cardLayout.show(card4, "Card 4");
+                        switchButton.setText("Pay");
+                        cardLayout.show(cardPanel, "Card 4");
                     }
-		    checkinInfoD[0] = w*h*l;
+                checkinInfoD[0] = w*h*l;
         	    checkinInfoD[1] = wi;
         	    checkinInfoD[2] = fee;
                 }
@@ -181,68 +188,28 @@ public class CheckInGUI extends JFrame{
                     for(int i=0; i<4; ++i){
                         filedBags[i].setText("");
                     }
-                	if(e.getActionCommand().equals("Exit")) {
-                		System.exit(0);
+                	if(e.getActionCommand().equals("Exit")) {               
+                		cardLayout.show(cardPanel, "Card 1");
                 	}
-//                    card3.remove(switchButton);
-//                    card3.validate();
-//                    card3.repaint();
-//                	 if(fee == 0) {
-
-//                           	if(e.getActionCommand().equals("Exit")) {
-//                                
-                                 
-//                	        card3.add(new JButton("Exit") {
-//                	            public void actionPerformed(ActionEvent e) {
-//                	                cardLayout.show(card1, "Card 1");
-//                	                cardLayout.show(card2, "Card 2");
-//                	            }
-//                	        });
-//                	        
-//                         switchButton.setText("Exit");
-//                             @Override
-//                             public void actionPerformed(ActionEvent e) {
-//                             	if(e.getActionCommand().equals("Exit")) {
-//                                   // go back to card 1 and clear the information
-//                             		cardLayout.show(card1, "Card 1");
-//                	                cardLayout.show(card2, "Card 2");
-//                                   
-//                             	}
-//                             }
-//                	 }
-//                     else {
-                             		//go to card 4 
-
-//                         card4.add(new JLabel("Please pay your excess baggage fee:" + fee));
-//                         switchButton.setText("Pay your excess baggage fee");
-//                         cardLayout.show(card4, "Card 4");
-
-//                     }
+//                  
 
                     addCheckPassenger();
                 }
-                if(Objects.equals(currentCard, "Card4")) {
-//                	if(e.getActionCommand().equals("transaction complete")) {
-//                		System.exit(0);
-//                	}
+               
+				if(Objects.equals(currentCard, "Card4")) {
                 	textField1.setText("");
                     textField2.setText("");
                     for(int i=0; i<4; ++i){
                         filedBags[i].setText("");
-                    }
-                    card4.remove(switchButton);
-                    JButton successButton = new JButton("transaction complete");
-                    JButton failureButton = new JButton("transaction incomplete");
-                    card4.add(successButton);
-                    card4.add(failureButton);
-                    card4.validate();
-                    card4.repaint();
-//                	else {
-//                		
-//                	}
+                    } 
+                    if(e.getActionCommand().equals("Pay")) {               
+                		cardLayout.show(cardPanel, "Card 1");
+                	}
+                  
                 }
+              
                 // deal with the right flow
-                cardLayout.next(cardPanel);
+//                cardLayout.next(cardPanel);
                 currentCard = getCurrentCardName(cardPanel);
                 frame.setTitle(currentCard);
                 
@@ -256,6 +223,42 @@ public class CheckInGUI extends JFrame{
         frame.setVisible(true);
     }
 
+
+//          JButton successButton = new JButton("transaction complete");
+//          JButton failureButton = new JButton("transaction incomplete");
+//         
+//          ActionListener listener = new ActionListener() {
+//              @Override
+//              public void actionPerformed(ActionEvent e) {
+//                  String command = e.getActionCommand();
+//                  switch (command){
+//                  
+//                      case "transaction complete":
+//                      	cardLayout.show(cardPanel, "Card 1"); 
+//                      case "transaction imcomplete":
+//                      	JOptionPane.showMessageDialog(frame, "You showed pay again!");
+//                   
+//                  }
+//              }
+//          };
+//          successButton.addActionListener(listener);
+//          failureButton.addActionListener(listener);
+//          if(e.getActionCommand().equals("Pay")) {
+//          	 card4.remove(switchButton);
+//          	 card4.add(successButton);
+//               card4.add(failureButton);
+//          }
+//         
+         
+
+//      	 card4.add(successButton);
+//           card4.add(failureButton);
+          
+           
+//         
+//          card4.validate();
+//          card4.repaint();       
+        
     private String getCurrentCardName(Container container) {
         for (Component component : container.getComponents()) {
             if (component.isVisible() && component instanceof JPanel) {
@@ -276,6 +279,4 @@ public class CheckInGUI extends JFrame{
         }
         return checkinpassengerList;
     }
-}
-
 }
