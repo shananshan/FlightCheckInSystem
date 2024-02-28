@@ -17,12 +17,12 @@ public class Report {
             Map<String, FlightStats> flightStatsMap = new HashMap<>();
 
             for (CheckInPassenger checkin : passengerCheckins) {
-                String flightNumber = checkin.getFlightCode();
+                String flightNumber = checkin.getNum();
                 double weight = checkin.getWeight();
                 double size = checkin.getSize();
                 double fee = checkin.getFee();
 
-                // If the flightNumber does not exist in the Map, add it
+                // If the flight number does not exist in statistics, add it to the statistics
                 if (!flightStatsMap.containsKey(flightNumber)) {
                     flightStatsMap.put(flightNumber, new FlightStats());
                 }
@@ -31,27 +31,27 @@ public class Report {
                 flightStats.addPassenger(weight, size, fee);
             }
 
-            // ������д���ļ�
+            // Write the report to the file
             for (Map.Entry<String, FlightStats> entry : flightStatsMap.entrySet()) {
                 String flightNumber = entry.getKey();
                 FlightStats flightStats = entry.getValue();
 
-                writer.write("�����: " + flightNumber);
+                writer.write("Flight Number: " + flightNumber);
                 writer.newLine();
-                writer.write("�ܳ˿�����: " + flightStats.getTotalPassengers());
+                writer.write("Total Passengers: " + flightStats.getTotalPassengers());
                 writer.newLine();
-                writer.write("������ߴ�: " + flightStats.getTotalSize());
+                writer.write("Total Luggage Size: " + flightStats.getTotalSize());
                 writer.newLine();
-                writer.write("����������: " + flightStats.getTotalWeight());
+                writer.write("Total Luggage Weight: " + flightStats.getTotalWeight());
                 writer.newLine();
-                writer.write("�ܳ������: " + flightStats.getTotalExcessFee());
+                writer.write("Total Excess Fee: " + flightStats.getTotalExcessFee());
                 writer.newLine();
-                writer.write("�Ƿ�������: " + (flightStats.canTakeOff() ? "��" : "��"));
+                writer.write("Can Take Off: " + (flightStats.canTakeOff() ? "Yes" : "No"));
                 writer.newLine();
                 writer.newLine();
             }
 
-            System.out.println("�������ɳɹ���");
+            System.out.println("Report generated successfully!");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,12 +88,13 @@ public class Report {
         }
 
         public boolean canTakeOff() {
-        	// ���躽����������ߴ�����������������
-            double maxAllowedSize = Flight.maxFlightVolume;  //��
-            double maxAllowedWeight = Flight.maxFlightWeight;  // ��
+            // Assume maximum luggage size and weight limits for the flight
+            double maxAllowedSize = Flight.maxFlightVolume;  
+            double maxAllowedWeight = Flight.maxFlightWeight;  
 
-            // ���������ߴ�������������������ƣ�����false����ʾ�������
+            // If the total luggage size or weight exceeds the limit, return false, indicating it cannot take off
             return totalSize <= maxAllowedSize && totalWeight <= maxAllowedWeight;
         }
     }
 }
+
