@@ -65,14 +65,14 @@ public class Flight {
     }
     
     // Calculate luggage size
-    double calculateLuggageSize(double width, double height, double length) {
+    double calculateSize(double width, double height, double length) {
         return width * height * length;
     }
     
     double calculateFee(double width, double height, double length, double weight){
         double weightFee = weight > maximumBaggageWeight ? (weight - maximumBaggageWeight) * extraWeightFee : 0;
 
-        double cur_Volume = calculateLuggageSize(width, height, length);
+        double cur_Volume = calculateSize(width, height, length);
         double volumeFee = 0;
         if(cur_Volume > maxbaggageVolume) {
             volumeFee = (cur_Volume - maxbaggageVolume) * extraVolumeFee;
