@@ -190,6 +190,7 @@ public class CheckInGUI extends JFrame{
                     }
                 	if(e.getActionCommand().equals("Exit")) {               
                 		cardLayout.show(cardPanel, "Card 1");
+				switchButton.setText("Submit");
                 	}
 //                  
 
@@ -204,6 +205,7 @@ public class CheckInGUI extends JFrame{
                     } 
                     if(e.getActionCommand().equals("Pay")) {               
                 		cardLayout.show(cardPanel, "Card 1");
+			    	switchButton.setText("Submit");
                 	}
                   
                 }
