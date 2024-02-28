@@ -14,8 +14,8 @@ public class CheckInGUI extends JFrame{
         public CheckInGUI() throws IOException {
         FlightCheckInSystem fcs = new FlightCheckInSystem();
         try {
-            fcs.readPassengers("Passenger Bookings.csv");
-            fcs.readFlights("Flight Detail.csv");
+            fcs.readPassengers("D:\\Collage\\SeniorYear\\AdvancedSoftware\\F21CS-FlightCheckInSystem_1\\Flight\\PassengerBookings.csv");
+            fcs.readFlights("D:\\Collage\\SeniorYear\\AdvancedSoftware\\F21CS-FlightCheckInSystem_1\\Flight\\FlightDetail.csv");
          }catch(FileNotFoundException e){
           e.printStackTrace();
          }catch(IOException e) {
@@ -206,7 +206,7 @@ public class CheckInGUI extends JFrame{
 
 //                     }
 
-
+                    addCheckPassenger();
                 }
                 if(Objects.equals(currentCard, "Card4")) {
 //                	if(e.getActionCommand().equals("transaction complete")) {
