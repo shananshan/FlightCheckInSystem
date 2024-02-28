@@ -140,10 +140,10 @@ public class CheckInGUI extends JFrame{
                     Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
                     Flight f = fcs.getFlight(p.getFlightCode());
                     double w, h, l, wi;
-                    wi = Double.valueOf(filedBags[0].getText());
+                    w = Double.valueOf(filedBags[0].getText());
                     h = Double.valueOf(filedBags[1].getText());
                     l = Double.valueOf(filedBags[2].getText());
-                    w = Double.valueOf(filedBags[3].getText());
+                    wi = Double.valueOf(filedBags[3].getText());
                     fee = f.calculateFee(w,h,l,wi);
                     labels[0].setText(name2[0] + ": " + p.name);
                     labels[1].setText(name2[1] + ": " + p.flightCode);
