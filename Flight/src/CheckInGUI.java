@@ -8,7 +8,9 @@ import java.util.Objects;
 
 public class CheckInGUI extends JFrame{
 	double fee;
-    public CheckInGUI() throws IOException {
+	public static String[] checkinInfoS = new String[2];
+        public static Double[] checkinInfoD = new Double[3];
+        public CheckInGUI() throws IOException {
         FlightCheckInSystem fcs = new FlightCheckInSystem();
         try {
             fcs.readPassengers("Passenger Bookings.csv");
@@ -134,6 +136,8 @@ public class CheckInGUI extends JFrame{
                         fcode.setText("Flight Code:" + p.flightCode);
                         fbcode.setText("Booking Code:" + p.bookingRefCode);
                         switchButton.setText("Confirm");
+			checkinInfoS[0] = p.name;
+	                checkinInfoS[1] = p.flightCode;
                     }
                 }
                 if(Objects.equals(currentCard, "Card2")) {
@@ -158,6 +162,9 @@ public class CheckInGUI extends JFrame{
                         switchButton.setText("Pay your excess baggage fee");
 //                        cardLayout.show(card4, "Card 4");
                     }
+		    checkinInfoD[0] = w*h*l;
+        	    checkinInfoD[1] = wi;
+        	    checkinInfoD[2] = fee;
                 }
                 if(Objects.equals(currentCard, "Card3")) {
                 	if(e.getActionCommand().equals("Exit")) {
@@ -237,5 +244,17 @@ public class CheckInGUI extends JFrame{
             }
         }
         return null;
+    }
+    public static AbstractList<CheckInPassenger> addCheckPassenger(){
+        ArrayList<CheckInPassenger> checkinpassengerList = CheckInPassenger.checkinPassengerList(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
+        for (CheckInPassenger checkinpassenger : checkinpassengerList) {
+            System.out.print(checkinpassenger.getName()+", ");
+            System.out.print(checkinpassenger.getFlightCode()+", ");
+            System.out.print(checkinpassenger.getWeight()+", ");
+            System.out.print(checkinpassenger.getSize()+", ");
+            System.out.print(checkinpassenger.getFee());
+            System.out.println();
+        }
+        return checkinpassengerList;
     }
 }
