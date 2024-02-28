@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.io.FileReader;
 
 
@@ -13,8 +14,8 @@ public class Flight {
     double extraVolumeFee;
     double extraWeightFee;
 
-    double maxFlightVolume;
-    double maxFlightWeight;
+    static double maxFlightVolume;
+    static double maxFlightWeight;
 
     String dest;
     String carrier;
@@ -52,10 +53,26 @@ public class Flight {
         }
     }
 
+    //Input luggage size
+    public void inputSize() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please enter the length of the baggage：");
+        double length = scanner.nextDouble();
+        System.out.print("Please enter the width of the baggage：");
+        double width = scanner.nextDouble();
+        System.out.print("Please enter the height of the baggage：");
+        double height = scanner.nextDouble();
+    }
+    
+    // Calculate luggage size
+    double calculateLuggageSize(double width, double height, double length) {
+        return width * height * length;
+    }
+    
     double calculateFee(double width, double height, double length, double weight){
         double weightFee = weight > maximumBaggageWeight ? (weight - maximumBaggageWeight) * extraWeightFee : 0;
 
-        double cur_Volume = width * height * length;
+        double cur_Volume = calculateLuggageSize(width, height, length);
         double volumeFee = 0;
         if(cur_Volume > maxbaggageVolume) {
             volumeFee = (cur_Volume - maxbaggageVolume) * extraVolumeFee;
