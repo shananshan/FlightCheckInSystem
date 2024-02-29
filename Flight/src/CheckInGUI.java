@@ -133,25 +133,29 @@ public class CheckInGUI extends JFrame{
                 // 在按钮点击时切换到另一个卡片
                 String currentCard = getCurrentCardName(cardPanel);
                 if(Objects.equals(currentCard, "Card1")) {
-                    System.out.println(textField1.getText());
-                    System.out.println(textField2.getText());
-                    if(!fcs.checkIn(textField1.getText(), textField2.getText())){
-                        tname.setText("the input is invalid! Please input again!");
-                        System.out.println("failed");
-                        JOptionPane.showMessageDialog(frame, "Information Mismatch");
-                        return;
-                    }
-                    else {
-                        System.out.println("success");
-                        // change to card2 which is the baggage part
-                        Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
-                        fname.setText("Full Name:" + p.name);
-                        fcode.setText("Flight Code:" + p.flightCode);
-                        fbcode.setText("Booking Code:" + p.bookingRefCode);
-                        switchButton.setText("Confirm");
-                        checkinInfoS[0] = p.name;
-                        checkinInfoS[1] = p.flightCode;
-                    }
+	                System.out.println(textField1.getText());
+	                System.out.println(textField2.getText());
+	                if(textField1.getText().isEmpty() && textField2.getText().isEmpty()) {
+	                	JOptionPane.showMessageDialog(frame, "Please enter your last name and booking number!");
+	                    return;
+	                   }
+	                else if(!fcs.checkIn(textField1.getText(), textField2.getText())){
+	                    tname.setText("the input is invalid! Please input again!");
+	                    System.out.println("failed");
+	                    JOptionPane.showMessageDialog(frame, "Information Mismatch");
+	                    return;
+	                }
+	                else {
+	                    System.out.println("success");
+	                    // change to card2 which is the baggage part
+	                    Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
+	                    fname.setText("Full Name:" + p.name);
+	                    fcode.setText("Flight Code:" + p.flightCode);
+	                    fbcode.setText("Booking Code:" + p.bookingRefCode);
+	                    switchButton.setText("Confirm");
+	                    checkinInfoS[0] = p.name;
+	                    checkinInfoS[1] = p.flightCode;
+	                 }
                     cardLayout.next(cardPanel);
                 }
                 if(Objects.equals(currentCard, "Card2")) {
@@ -168,6 +172,10 @@ public class CheckInGUI extends JFrame{
 	                    labels[1].setText(name2[1] + ": " + p.flightCode);
 	                    labels[2].setText(name2[2] + ": " + p.bookingRefCode);
 	                    labels[3].setText(name2[3] + ": " + Double.toString(fee));
+	                    if(filedBags[0].getText().isEmpty() && filedBags[1].getText().isEmpty() && filedBags[2].getText().isEmpty() && filedBags[3].getText().isEmpty()) {
+		                	JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight!");
+		                	return;
+	                    }
 	                    if(fee == 0) {
 	                    	switchButton.setText("Exit");
 	                    	cardLayout.next(cardPanel);
@@ -180,11 +188,15 @@ public class CheckInGUI extends JFrame{
 	                checkinInfoD[0] = w*h*l;
 	        	    checkinInfoD[1] = wi;
 	        	    checkinInfoD[2] = fee;
-	                } catch (NumberFormatException nfe) {
-	                    JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight.");
+	                }catch(NumberFormatException nfe){
+	                    JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight!");
 	                    return;
-	                }
+//	                }catch(NullPointerException npe) {
+//	                	JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight!");
+//	                	return;
+//	                }
 
+                }
                 }
                 if(Objects.equals(currentCard, "Card3")) {
                 	//reset card 1
@@ -234,6 +246,7 @@ public class CheckInGUI extends JFrame{
                 frame.setTitle(currentCard);
                 
             }
+
         });
 
         frame.add(cardPanel, BorderLayout.CENTER);
