@@ -7,7 +7,7 @@ import java.io.FileReader;
 public class Flight {
     String flightNum;
     int numOfPassengers;
-    int maximumPassengers;
+    static int maximumPassengers;
     double maximumBaggageWeight;
     double maxbaggageVolume;
     double extraVolumeFee;
