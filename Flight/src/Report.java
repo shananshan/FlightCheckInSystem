@@ -40,11 +40,11 @@ public class Report {
                 writer.newLine();
                 writer.write("Total Passengers: " + flightStats.getTotalPassengers());
                 writer.newLine();
-                writer.write("Total Luggage Size: " + flightStats.getTotalSize() + "cm");
+                writer.write("Total Luggage Size: " + flightStats.getTotalSize() + " cm");
                 writer.newLine();
-                writer.write("Total Luggage Weight: " + flightStats.getTotalWeight() + "kg");
+                writer.write("Total Luggage Weight: " + flightStats.getTotalWeight() + " kg");
                 writer.newLine();
-                writer.write("Total Excess Fee: " + flightStats.getTotalExcessFee() + "£" );
+                writer.write("Total Excess Fee: " + flightStats.getTotalExcessFee() + " £" );
                 writer.newLine();
                 writer.write("Can Take Off: " + (flightStats.canTakeOff() ? "Yes" : "No"));
                 writer.newLine();
@@ -90,10 +90,11 @@ public class Report {
         public boolean canTakeOff() {
             // Assume maximum luggage size and weight limits for the flight
             double maxAllowedSize = Flight.maxFlightVolume;  
-            double maxAllowedWeight = Flight.maxFlightWeight;  
+            double maxAllowedWeight = Flight.maxFlightWeight; 
+            int maxAllowedPassengers = Flight.maximumPassengers;
 
             // If the total luggage size or weight exceeds the limit, return false, indicating it cannot take off
-            return totalSize <= maxAllowedSize && totalWeight <= maxAllowedWeight;
+            return totalPassengers <= maxAllowedPassengers && totalSize <= maxAllowedSize && totalWeight <= maxAllowedWeight;
         }
     }
 }
