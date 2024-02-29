@@ -7,16 +7,12 @@ import java.util.List;
 import java.util.Objects;
 
 public class FlightCheckInSystem {
-    public static void main(String[] argvs){
-
-    }
-
-    public FlightCheckInSystem() {
+     public FlightCheckInSystem() {
         passengerList = new ArrayList<>();
         flightList = new ArrayList<>();
     }
 
-    List<Passenger> passengerList;
+    static List<Passenger> passengerList;
     List<Flight> flightList;
 
     public void readFlights(String csvFilePath) throws IOException {
@@ -53,7 +49,7 @@ public class FlightCheckInSystem {
         return false;
     }
 
-    public Passenger getPassenger(String lastname, String Code){
+    public static Passenger getPassenger(String lastname, String Code){
         for(Passenger p: passengerList){
             if(p.checkOne(lastname, Code))
                 return p;
