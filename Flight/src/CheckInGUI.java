@@ -201,14 +201,13 @@ public class CheckInGUI extends JFrame{
 //	                	return;
 //	                }
 
+                    }
                     CheckInPassenger cp = new CheckInPassenger(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
                     checkinpassengerList.add(cp);
                     Report report = new Report(checkinpassengerList);
                     report.generateReport("report.txt");
 //                    report.generateReport("D:\\Collage\\SeniorYear\\AdvancedSoftware\\F21CS-FlightCheckInSystem_1\\Flight\\report.txt");
 
-
-                }
                 }
                 if(Objects.equals(currentCard, "Card3")) {
                 	//reset card 1
