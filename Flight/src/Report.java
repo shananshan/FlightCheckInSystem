@@ -40,11 +40,11 @@ public class Report {
                 writer.newLine();
                 writer.write("Total Passengers: " + flightStats.getTotalPassengers());
                 writer.newLine();
-                writer.write("Total Luggage Size: " + flightStats.getTotalSize());
+                writer.write("Total Luggage Size: " + flightStats.getTotalSize() + "cm");
                 writer.newLine();
-                writer.write("Total Luggage Weight: " + flightStats.getTotalWeight());
+                writer.write("Total Luggage Weight: " + flightStats.getTotalWeight() + "kg");
                 writer.newLine();
-                writer.write("Total Excess Fee: " + flightStats.getTotalExcessFee());
+                writer.write("Total Excess Fee: " + flightStats.getTotalExcessFee() + "£" );
                 writer.newLine();
                 writer.write("Can Take Off: " + (flightStats.canTakeOff() ? "Yes" : "No"));
                 writer.newLine();
