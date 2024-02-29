@@ -61,8 +61,6 @@ public class CheckInGUI extends JFrame{
         card2.add(new JLabel("Enter your baggage information."));
 
         JPanel BaggageTit = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel btit = new JLabel("Baggage Details");
-        BaggageTit.add(btit);
         JPanel PassDetail = new JPanel(new FlowLayout(FlowLayout.CENTER));
         PassDetail.setLayout(new GridLayout(2, 2));
         JLabel fname = new JLabel("Full Name:");
@@ -146,7 +144,9 @@ public class CheckInGUI extends JFrame{
 	                    JOptionPane.showMessageDialog(frame, "Information Mismatch");
 	                    return;
 	                }
+	                
 	                else {
+	                	
 	                    System.out.println("success");
 	                    // change to card2 which is the baggage part
 	                    Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
@@ -156,6 +156,7 @@ public class CheckInGUI extends JFrame{
 	                    switchButton.setText("Confirm");
 	                    checkinInfoS[0] = p.name;
 	                    checkinInfoS[1] = p.flightCode;
+	                    
 	                 }
                     cardLayout.next(cardPanel);
                 }
@@ -172,7 +173,7 @@ public class CheckInGUI extends JFrame{
 	                    labels[0].setText(name2[0] + ": " + p.name);
 	                    labels[1].setText(name2[1] + ": " + p.flightCode);
 	                    labels[2].setText(name2[2] + ": " + p.bookingRefCode);
-	                    labels[3].setText(name2[3] + ": " + Double.toString(fee));
+	                    labels[3].setText(name2[3] + ": " + Double.toString(fee)+"£");
 	                    if(filedBags[0].getText().isEmpty() && filedBags[1].getText().isEmpty() && filedBags[2].getText().isEmpty() && filedBags[3].getText().isEmpty()) {
 		                	JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight!");
 		                	return;
@@ -182,7 +183,7 @@ public class CheckInGUI extends JFrame{
 	                    	cardLayout.next(cardPanel);
 	                    }
 	                    else {
-	                        card4.add(new JLabel("Please pay your excess baggage fee:" + fee));
+	                        card4.add(new JLabel("Please pay your excess baggage fee:" + fee+"£"));
 	                        switchButton.setText("Pay");
 	                        cardLayout.show(cardPanel, "Card 4");
 	                    }
@@ -201,6 +202,7 @@ public class CheckInGUI extends JFrame{
                     CheckInPassenger cp = new CheckInPassenger(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
                     checkinpassengerList.add(cp);
                     Report report = new Report(checkinpassengerList);
+//                    report.generateReport("report.txt");
                     report.generateReport("report.txt");
                 }
                 if(Objects.equals(currentCard, "Card3")) {
@@ -256,37 +258,7 @@ public class CheckInGUI extends JFrame{
 
         frame.setVisible(true);
     }
-
-
-//          JButton successButton = new JButton("transaction complete");
-//          JButton failureButton = new JButton("transaction incomplete");
-//         
-//          ActionListener listener = new ActionListener() {
-//              @Override
-//              public void actionPerformed(ActionEvent e) {
-//                  String command = e.getActionCommand();
-//                  switch (command){
-//                  
-//                      case "transaction complete":
-//                      	cardLayout.show(cardPanel, "Card 1"); 
-//                      case "transaction imcomplete":
-//                      	JOptionPane.showMessageDialog(frame, "You should pay again!");
-//        					return;
-//                   
-//                  }
-//              }
-//          };
-//          successButton.addActionListener(listener);
-//          failureButton.addActionListener(listener);
-//          if(e.getActionCommand().equals("Pay")) {
-//          	 card4.remove(switchButton);
-//          	 card4.add(successButton);
-//               card4.add(failureButton);
-//          }
-//             
-//    
-//     card4.validate();
-//     card4.repaint();       
+        
    
 private String getCurrentCardName(Container container) {
    for (Component component : container.getComponents()) {
