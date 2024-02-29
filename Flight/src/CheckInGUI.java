@@ -10,11 +10,14 @@ import java.util.Objects;
 public class CheckInGUI extends JFrame{
 	public static String[] checkinInfoS = new String[2];
         public static Double[] checkinInfoD = new Double[3];
+        ArrayList checkinpassengerList = new ArrayList<>();
         public CheckInGUI() throws IOException {
         FlightCheckInSystem fcs = new FlightCheckInSystem();
         try {
-            fcs.readPassengers("Passenger Bookings.csv");
-            fcs.readFlights("Flight Detail.csv");
+//            fcs.readPassengers("Passenger Bookings.csv");
+//            fcs.readFlights("Flight Detail.csv");
+            fcs.readPassengers("D:\\Collage\\SeniorYear\\AdvancedSoftware\\F21CS-FlightCheckInSystem_1\\Flight\\PassengerBookings.csv");
+            fcs.readFlights("D:\\Collage\\SeniorYear\\AdvancedSoftware\\F21CS-FlightCheckInSystem_1\\Flight\\FlightDetail.csv");
          }catch(FileNotFoundException e){
           e.printStackTrace();
          }catch(IOException e) {
@@ -196,7 +199,12 @@ public class CheckInGUI extends JFrame{
 //	                	return;
 //	                }
 
-                }
+                    }
+                    CheckInPassenger cp = new CheckInPassenger(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
+                    checkinpassengerList.add(cp);
+                    Report report = new Report(checkinpassengerList);
+//                    report.generateReport("report.txt");
+                    report.generateReport("D:\\Collage\\SeniorYear\\AdvancedSoftware\\F21CS-FlightCheckInSystem_1\\Flight\\report.txt");
                 }
                 if(Objects.equals(currentCard, "Card3")) {
                 	//reset card 1
@@ -215,9 +223,6 @@ public class CheckInGUI extends JFrame{
                 		cardLayout.show(cardPanel, "Card 1");
                 		
                 	}
-//                  
-
-                    addCheckPassenger();
                 }
                
 				if(Objects.equals(currentCard, "Card4")) {
@@ -294,16 +299,16 @@ private String getCurrentCardName(Container container) {
    }
    return null;
 }
-public static ArrayList<CheckInPassenger> addCheckPassenger(){
-   ArrayList<CheckInPassenger> checkinpassengerList = CheckInPassenger.checkinPassengerList(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
-   for (CheckInPassenger checkinpassenger : checkinpassengerList) {
-       System.out.print(checkinpassenger.getName()+", ");
-       System.out.print(checkinpassenger.getFlightCode()+", ");
-       System.out.print(checkinpassenger.getWeight()+", ");
-       System.out.print(checkinpassenger.getSize()+", ");
-       System.out.print(checkinpassenger.getFee());
-       System.out.println();
-   }
-   return checkinpassengerList;
-}
+//public static ArrayList<CheckInPassenger> addCheckPassenger(){
+//   ArrayList<CheckInPassenger> checkinpassengerList = CheckInPassenger.checkinPassengerList(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
+//   for (CheckInPassenger checkinpassenger : checkinpassengerList) {
+//       System.out.print(checkinpassenger.getName()+", ");
+//       System.out.print(checkinpassenger.getFlightCode()+", ");
+//       System.out.print(checkinpassenger.getWeight()+", ");
+//       System.out.print(checkinpassenger.getSize()+", ");
+//       System.out.print(checkinpassenger.getFee());
+//       System.out.println();
+//   }
+//   return checkinpassengerList;
+//}
 }
