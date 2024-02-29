@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,13 +9,17 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class CheckInGUI extends JFrame{
+	double fee;
+    public static ArrayList<CheckInPassenger> checkinpassengerList = new ArrayList<>();
 	public static String[] checkinInfoS = new String[2];
         public static Double[] checkinInfoD = new Double[3];
         public CheckInGUI() throws IOException {
         FlightCheckInSystem fcs = new FlightCheckInSystem();
         try {
-            fcs.readPassengers("Passenger Bookings.csv");
-            fcs.readFlights("Flight Detail.csv");
+//            fcs.readPassengers("Passenger Bookings.csv");
+//            fcs.readFlights("Flight Detail.csv");
+            fcs.readPassengers("D:\\Collage\\SeniorYear\\AdvancedSoftware\\F21CS-FlightCheckInSystem_1\\Flight\\Passenger Bookings.csv");
+            fcs.readFlights("D:\\Collage\\SeniorYear\\AdvancedSoftware\\F21CS-FlightCheckInSystem_1\\Flight\\Flight Detail.csv");
          }catch(FileNotFoundException e){
           e.printStackTrace();
          }catch(IOException e) {
@@ -25,7 +30,7 @@ public class CheckInGUI extends JFrame{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
         frame.setLocationRelativeTo(null);
-
+        
 
         CardLayout cardLayout = new CardLayout();
         JPanel cardPanel = new JPanel(cardLayout);
@@ -112,7 +117,6 @@ public class CheckInGUI extends JFrame{
         card4.setName("Card4");
         JPanel pay = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pay.setLayout(new GridLayout(2, 2));
-        
       
         
        
@@ -124,7 +128,8 @@ public class CheckInGUI extends JFrame{
         cardPanel.add(card2, "Card 2");
         cardPanel.add(card3, "Card 3");
         cardPanel.add(card4, "Card 4");
-
+        
+        
         
         JButton switchButton = new JButton("Submit");
         switchButton.addActionListener(new ActionListener() {
@@ -185,6 +190,13 @@ public class CheckInGUI extends JFrame{
 	                    return;
 	                }
 
+                    CheckInPassenger cp = new CheckInPassenger(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
+                    checkinpassengerList.add(cp);
+                    Report report = new Report(checkinpassengerList);
+                    report.generateReport("report.txt");
+//                    report.generateReport("D:\\Collage\\SeniorYear\\AdvancedSoftware\\F21CS-FlightCheckInSystem_1\\Flight\\report.txt");
+
+
                 }
                 if(Objects.equals(currentCard, "Card3")) {
                 	//reset card 1
@@ -198,14 +210,10 @@ public class CheckInGUI extends JFrame{
                     //reset card 4
                     card4.removeAll();
                     card4.validate();
-                    card4.repaint();  
-                	if(e.getActionCommand().equals("Exit")) {               
+                    card4.repaint();
+                	if(e.getActionCommand().equals("Exit")) {
                 		cardLayout.show(cardPanel, "Card 1");
-                		
                 	}
-//                  
-
-                    addCheckPassenger();
                 }
                
 				if(Objects.equals(currentCard, "Card4")) {
@@ -233,6 +241,7 @@ public class CheckInGUI extends JFrame{
                 currentCard = getCurrentCardName(cardPanel);
                 frame.setTitle(currentCard);
                 
+            
             }
         });
 
@@ -255,8 +264,7 @@ public class CheckInGUI extends JFrame{
 //                      case "transaction complete":
 //                      	cardLayout.show(cardPanel, "Card 1"); 
 //                      case "transaction imcomplete":
-//                      	JOptionPane.showMessageDialog(frame, "You should pay again!");
-//        					return;
+//                      	JOptionPane.showMessageDialog(frame, "You showed pay again!");
 //                   
 //                  }
 //              }
@@ -268,29 +276,35 @@ public class CheckInGUI extends JFrame{
 //          	 card4.add(successButton);
 //               card4.add(failureButton);
 //          }
-//             
-//    
-//     card4.validate();
-//     card4.repaint();       
-   
-private String getCurrentCardName(Container container) {
-   for (Component component : container.getComponents()) {
-       if (component.isVisible() && component instanceof JPanel) {
-           return ((JPanel) component).getName();
-       }
-   }
-   return null;
-}
-public static ArrayList<CheckInPassenger> addCheckPassenger(){
-   ArrayList<CheckInPassenger> checkinpassengerList = CheckInPassenger.checkinPassengerList(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
-   for (CheckInPassenger checkinpassenger : checkinpassengerList) {
-       System.out.print(checkinpassenger.getName()+", ");
-       System.out.print(checkinpassenger.getFlightCode()+", ");
-       System.out.print(checkinpassenger.getWeight()+", ");
-       System.out.print(checkinpassenger.getSize()+", ");
-       System.out.print(checkinpassenger.getFee());
-       System.out.println();
-   }
-   return checkinpassengerList;
-}
+//         
+         
+
+//      	 card4.add(successButton);
+//           card4.add(failureButton);
+          
+           
+//         
+//          card4.validate();
+//          card4.repaint();       
+        
+    private String getCurrentCardName(Container container) {
+        for (Component component : container.getComponents()) {
+            if (component.isVisible() && component instanceof JPanel) {
+                return ((JPanel) component).getName();
+            }
+        }
+        return null;
+    }
+//    public static ArrayList<CheckInPassenger> printCheckPassenger(){
+//        checkinpassengerList = CheckInPassenger.checkinPassengerList(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
+//        for (CheckInPassenger checkinpassenger : checkinpassengerList) {
+//            System.out.print(checkinpassenger.getName()+", ");
+//            System.out.print(checkinpassenger.getFlightCode()+", ");
+//            System.out.print(checkinpassenger.getWeight()+", ");
+//            System.out.print(checkinpassenger.getSize()+", ");
+//            System.out.print(checkinpassenger.getFee());
+//            System.out.println();
+//        }
+//        return checkinpassengerList;
+//    }
 }

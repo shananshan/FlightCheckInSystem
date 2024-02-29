@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class CheckInPassenger {
-	// flight code, first name, surname, size, weight, fee
+	// flight code, name, size, weight, fee
 
 	private String flightCode;
     private String name;
@@ -19,9 +19,7 @@ public class CheckInPassenger {
 
     // Getter and setter methods for each attribute
 
-    public String getFlightCode() {
-        return flightCode;
-    }
+    public String getFlightCode() { return flightCode; }
 
     public void setFlightCode(String flightCode) {
         this.flightCode = flightCode;
@@ -58,13 +56,5 @@ public class CheckInPassenger {
     public void setFee(double fee) {
         this.fee = fee;
     }
-    
-    public static ArrayList<CheckInPassenger> checkinPassengerList(String flightCode, String name, double size, double weight, double fee) {
-        ArrayList<CheckInPassenger> checkinpassengerList = new ArrayList<>();
 
-        CheckInPassenger checkinpassenger = new CheckInPassenger(flightCode, name, size, weight, fee);
-        checkinpassengerList.add(checkinpassenger);
-
-        return checkinpassengerList;
-    }
 }
