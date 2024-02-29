@@ -132,32 +132,32 @@ public class CheckInGUI extends JFrame{
                 // 在按钮点击时切换到另一个卡片
                 String currentCard = getCurrentCardName(cardPanel);
                 if(Objects.equals(currentCard, "Card1")) {
-	                System.out.println(textField1.getText());
-	                System.out.println(textField2.getText());
-	                if(textField1.getText().isEmpty() && textField2.getText().isEmpty()) {
-	                	JOptionPane.showMessageDialog(frame, "Please enter your last name and booking number!");
-	                    return;
-	                   }
-	                else if(!fcs.checkIn(textField1.getText(), textField2.getText())){
-	                    tname.setText("the input is invalid! Please input again!");
-	                    System.out.println("failed");
-	                    JOptionPane.showMessageDialog(frame, "Information Mismatch");
-	                    return;
-	                }
-	                
-	                else {
-	                	
-	                    System.out.println("success");
-	                    // change to card2 which is the baggage part
-	                    Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
-	                    fname.setText("Full Name:" + p.name);
-	                    fcode.setText("Flight Code:" + p.flightCode);
-	                    fbcode.setText("Booking Code:" + p.bookingRefCode);
-	                    switchButton.setText("Confirm");
-	                    checkinInfoS[0] = p.name;
-	                    checkinInfoS[1] = p.flightCode;
-	                    
-	                 }
+                    System.out.println(textField1.getText());
+                    System.out.println(textField2.getText());
+                    if(textField1.getText().isEmpty() && textField2.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(frame, "Please enter your last name and booking number!");
+                        return;
+                    } else if(!fcs.checkIn(textField1.getText(), textField2.getText())){
+                        tname.setText("the input is invalid! Please input again!");
+                        System.out.println("failed");
+                        JOptionPane.showMessageDialog(frame, "Information Mismatch");
+                        return;
+                    } else if (false) { //Repeat check-in
+                        tname.setText("The passenger is duplicate! Please input again!");
+                        System.out.println("failed");
+                        JOptionPane.showMessageDialog(frame, "Passenger duplicate");
+                        return;
+                    } else {
+                        System.out.println("success");
+                        // change to card2 which is the baggage part
+                        Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
+                        fname.setText("Full Name:" + p.name);
+                        fcode.setText("Flight Code:" + p.flightCode);
+                        fbcode.setText("Booking Code:" + p.bookingRefCode);
+                        switchButton.setText("Confirm");
+                        checkinInfoS[0] = p.name;
+                        checkinInfoS[1] = p.flightCode;
+                    }
                     cardLayout.next(cardPanel);
                 }
                 if(Objects.equals(currentCard, "Card2")) {
@@ -202,7 +202,6 @@ public class CheckInGUI extends JFrame{
                     CheckInPassenger cp = new CheckInPassenger(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
                     checkinpassengerList.add(cp);
                     Report report = new Report(checkinpassengerList);
-//                    report.generateReport("report.txt");
                     report.generateReport("report.txt");
                 }
                 if(Objects.equals(currentCard, "Card3")) {
@@ -258,7 +257,7 @@ public class CheckInGUI extends JFrame{
 
         frame.setVisible(true);
     }
-        
+
    
 private String getCurrentCardName(Container container) {
    for (Component component : container.getComponents()) {
