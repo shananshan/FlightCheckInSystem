@@ -186,8 +186,8 @@ public class CheckInGUI extends JFrame{
                             switchButton.setText("Pay");
                             cardLayout.show(cardPanel, "Card 4");
                         }
-                        checkinInfoD[0] = w*h*l;
-                        checkinInfoD[1] = wi;
+                        checkinInfoD[0] = wi*h*l;
+                        checkinInfoD[1] = w;
                         checkinInfoD[2] = fee;
                     }catch(NumberFormatException nfe){
                         JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight!");

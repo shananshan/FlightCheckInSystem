@@ -40,7 +40,7 @@ public class Report {
                 writer.newLine();
                 writer.write("Total Passengers: " + flightStats.getTotalPassengers());
                 writer.newLine();
-                writer.write("Total Luggage Size: " + flightStats.getTotalSize() + " cm^2");
+                writer.write("Total Luggage Size: " + flightStats.getTotalSize() + " cm^3");
                 writer.newLine();
                 writer.write("Total Luggage Weight: " + flightStats.getTotalWeight() + " kg");
                 writer.newLine();
