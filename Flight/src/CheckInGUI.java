@@ -126,6 +126,7 @@ public class CheckInGUI extends JFrame{
 
         
         JButton switchButton = new JButton("Submit");
+        
         switchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -205,18 +206,7 @@ public class CheckInGUI extends JFrame{
                     report.generateReport("report.txt");
                 }
                 if(Objects.equals(currentCard, "Card3")) {
-                	//reset card 1
-                	textField1.setText("");
-                    textField2.setText("");
-                    switchButton.setText("Submit");
-                    //reset card 2
-                    for(int i=0; i<4; ++i){
-                        filedBags[i].setText("");
-                    }
-                    //reset card 4
-                    card4.removeAll();
-                    card4.validate();
-                    card4.repaint();  
+                	clear();
                 	if(e.getActionCommand().equals("Exit")) {               
                 		cardLayout.show(cardPanel, "Card 1");
                 		
@@ -224,18 +214,7 @@ public class CheckInGUI extends JFrame{
                 }
                
 				if(Objects.equals(currentCard, "Card4")) {
-                	//reset card 1
-                	textField1.setText("");
-                    textField2.setText("");
-                    switchButton.setText("Submit");
-                    //reset card 2
-                    for(int i=0; i<4; ++i){
-                        filedBags[i].setText("");
-                    }
-                    //reset card 4
-                    card4.removeAll();
-                    card4.validate();
-                    card4.repaint();
+					clear();
                     if(e.getActionCommand().equals("Pay")) {               
                 		cardLayout.show(cardPanel, "Card 1");
                 		switchButton.setText("Submit");
@@ -249,7 +228,20 @@ public class CheckInGUI extends JFrame{
                 frame.setTitle(currentCard);
                 
             }
-
+            private void clear() {
+                // Reset card 1
+                textField1.setText("");
+                textField2.setText("");
+                switchButton.setText("Submit");
+                // Reset card 2
+                for(int i = 0; i < 4; ++i){
+                    filedBags[i].setText("");
+                }
+                // Reset card 4
+                card4.removeAll();
+                card4.validate();
+                card4.repaint();
+            }
         });
 
         frame.add(cardPanel, BorderLayout.CENTER);
