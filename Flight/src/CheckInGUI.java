@@ -8,19 +8,19 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class CheckInGUI extends JFrame{
-	public static String[] checkinInfoS = new String[2];
-        public static Double[] checkinInfoD = new Double[3];
-        ArrayList checkinpassengerList = new ArrayList<>();
-        public CheckInGUI() throws IOException {
+    public static String[] checkinInfoS = new String[3];
+    public static Double[] checkinInfoD = new Double[3];
+    ArrayList checkinpassengerList = new ArrayList<>();
+    public CheckInGUI() throws IOException {
         FlightCheckInSystem fcs = new FlightCheckInSystem();
         try {
             fcs.readPassengers("Passenger Bookings.csv");
             fcs.readFlights("Flight Detail.csv");
-         }catch(FileNotFoundException e){
+        }catch(FileNotFoundException e){
           e.printStackTrace();
-         }catch(IOException e) {
+        }catch(IOException e) {
           e.printStackTrace();
-         }
+        }
 
         JFrame frame = new JFrame("Flight Check-In System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,16 +44,18 @@ public class CheckInGUI extends JFrame{
         // 创建输入姓氏的面板，使用FlowLayout居中对齐
         JPanel inputLastName = new JPanel(new FlowLayout(FlowLayout.CENTER));
         inputLastName.add(new JLabel("Input Last Name:     ")); // 添加标签来标识输入框
+        inputLastName.setFont(inputLastName.getFont().deriveFont(18f));// change the size of the lable
         inputLastName.add(textField1); // 添加文本框
         // 创建输入预定码的面板，使用FlowLayout居中对齐
         JPanel inputBookingCode = new JPanel(new FlowLayout(FlowLayout.CENTER));
         inputBookingCode.add(new JLabel("Input Booking code:"));
+        inputBookingCode.setFont(inputBookingCode.getFont().deriveFont(18f));// change the size of the lable
         inputBookingCode.add(textField2); // 添加文本框
         // 将面板添加到card1
         card1.add(welcomeTitle);
         card1.add(inputLastName);
         card1.add(inputBookingCode);
-        
+
 
         // this is for input the volume and weight of the baggage
         JPanel card2 = new JPanel();
@@ -76,12 +78,12 @@ public class CheckInGUI extends JFrame{
         String[] names = {"Weight", "Height", "Length", "Width"};
         String[] units = {"KG", "CM", "CM", "CM"}; // 单位数组
         for(int i=0; i<4; ++i){
-        	baggs[i] = new JPanel();
-        	baggs[i].add(new JLabel(names[i] + ":"));
-        	filedBags[i] = new JTextField(10);
-        	baggs[i].add(filedBags[i]);
-        	baggs[i].add(new JLabel(units[i]));
-        	inputBagg.add(baggs[i]);
+            baggs[i] = new JPanel();
+            baggs[i].add(new JLabel(names[i] + ":"));
+            filedBags[i] = new JTextField(10);
+            baggs[i].add(filedBags[i]);
+            baggs[i].add(new JLabel(units[i]));
+            inputBagg.add(baggs[i]);
         }
         card2.add(BaggageTit);
         card2.add(PassDetail);
@@ -105,18 +107,14 @@ public class CheckInGUI extends JFrame{
             chek.add(res[i]);
         }
         card3.add(chek);
-        
+
         // Card4: transaction panel
         JPanel card4 = new JPanel();
         card4.setName("Card4");
         JPanel pay = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pay.setLayout(new GridLayout(2, 2));
-        
-      
-        
-       
-       
-        
+
+
 
 
         cardPanel.add(card1, "Card 1");
@@ -124,9 +122,9 @@ public class CheckInGUI extends JFrame{
         cardPanel.add(card3, "Card 3");
         cardPanel.add(card4, "Card 4");
 
-        
+
         JButton switchButton = new JButton("Submit");
-        
+
         switchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -143,7 +141,7 @@ public class CheckInGUI extends JFrame{
                         System.out.println("failed");
                         JOptionPane.showMessageDialog(frame, "Information Mismatch");
                         return;
-                    } else if (false) { //Repeat check-in
+                    } else if (CheckInPassenger.duplicatePassenger(textField2.getText(), checkinpassengerList)) { //Repeat check-in
                         tname.setText("The passenger is duplicate! Please input again!");
                         System.out.println("failed");
                         JOptionPane.showMessageDialog(frame, "Passenger duplicate");
@@ -158,6 +156,7 @@ public class CheckInGUI extends JFrame{
                         switchButton.setText("Confirm");
                         checkinInfoS[0] = p.name;
                         checkinInfoS[1] = p.flightCode;
+                        checkinInfoS[2] = textField2.getText();
                     }
                     cardLayout.next(cardPanel);
                 }
@@ -165,68 +164,67 @@ public class CheckInGUI extends JFrame{
                     Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
                     Flight f = fcs.getFlight(p.getFlightCode());
                     try {
-	                    double w, h, l, wi;
-	                    w = Double.valueOf(filedBags[0].getText());
-	                    h = Double.valueOf(filedBags[1].getText());
-	                    l = Double.valueOf(filedBags[2].getText());
-	                    wi = Double.valueOf(filedBags[3].getText());
-	                    double fee = f.calculateFee(w,h,l,wi);
-	                    labels[0].setText(name2[0] + ": " + p.name);
-	                    labels[1].setText(name2[1] + ": " + p.flightCode);
-	                    labels[2].setText(name2[2] + ": " + p.bookingRefCode);
-	                    labels[3].setText(name2[3] + ": " + Double.toString(fee)+"£");
-	                    if(filedBags[0].getText().isEmpty() && filedBags[1].getText().isEmpty() && filedBags[2].getText().isEmpty() && filedBags[3].getText().isEmpty()) {
-		                	JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight!");
-		                	return;
-	                    }
-	                    if(fee == 0) {
-	                    	switchButton.setText("Exit");
-	                    	cardLayout.next(cardPanel);
-	                    }
-	                    else {
-	                        card4.add(new JLabel("Please pay your excess baggage fee:" + fee+"£"));
-	                        switchButton.setText("Pay");
-	                        cardLayout.show(cardPanel, "Card 4");
-	                    }
-	                checkinInfoD[0] = w*h*l;
-	        	    checkinInfoD[1] = wi;
-	        	    checkinInfoD[2] = fee;
-	                }catch(NumberFormatException nfe){
-	                    JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight!");
-	                    return;
-//	                }catch(NullPointerException npe) {
-//	                	JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight!");
-//	                	return;
-//	                }
+                        double w, h, l, wi;
+                        w = Double.valueOf(filedBags[0].getText());
+                        h = Double.valueOf(filedBags[1].getText());
+                        l = Double.valueOf(filedBags[2].getText());
+                        wi = Double.valueOf(filedBags[3].getText());
+                        double fee = f.calculateFee(w,h,l,wi);
+                        labels[0].setText(name2[0] + ": " + p.name);
+                        labels[1].setText(name2[1] + ": " + p.flightCode);
+                        labels[2].setText(name2[2] + ": " + p.bookingRefCode);
+                        labels[3].setText(name2[3] + ": " + Double.toString(fee)+"£");
+                        if(filedBags[0].getText().isEmpty() && filedBags[1].getText().isEmpty() && filedBags[2].getText().isEmpty() && filedBags[3].getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight!");
+                            return;
+                        }
+                        if(fee == 0) {
+                            switchButton.setText("Exit");
+                            cardLayout.next(cardPanel);
+                        } else {
+                            card4.add(new JLabel("Please pay your excess baggage fee:" + fee+"£"));
+                            switchButton.setText("Pay");
+                            cardLayout.show(cardPanel, "Card 4");
+                        }
+                        checkinInfoD[0] = w*h*l;
+                        checkinInfoD[1] = wi;
+                        checkinInfoD[2] = fee;
+                    }catch(NumberFormatException nfe){
+                        JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight!");
+                        return;
+    //	                }catch(NullPointerException npe) {
+    //	                	JOptionPane.showMessageDialog(frame, "Please enter valid numbers for baggage dimensions and weight!");
+    //	                	return;
+    //	                }
 
                     }
-                    CheckInPassenger cp = new CheckInPassenger(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
+                    CheckInPassenger cp = new CheckInPassenger(checkinInfoS[0], checkinInfoS[1], checkinInfoS[2], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
                     checkinpassengerList.add(cp);
                     Report report = new Report(checkinpassengerList);
                     report.generateReport("report.txt");
                 }
                 if(Objects.equals(currentCard, "Card3")) {
-                	clear();
-                	if(e.getActionCommand().equals("Exit")) {               
-                		cardLayout.show(cardPanel, "Card 1");
-                		
-                	}
+                    clear();
+                    if(e.getActionCommand().equals("Exit")) {
+                        cardLayout.show(cardPanel, "Card 1");
+
+                    }
                 }
-               
-				if(Objects.equals(currentCard, "Card4")) {
-					clear();
-                    if(e.getActionCommand().equals("Pay")) {               
-                		cardLayout.show(cardPanel, "Card 1");
-                		switchButton.setText("Submit");
-                	}
-                  
+
+                if(Objects.equals(currentCard, "Card4")) {
+                    clear();
+                    if(e.getActionCommand().equals("Pay")) {
+                        cardLayout.show(cardPanel, "Card 1");
+                        switchButton.setText("Submit");
+                    }
+
                 }
-              
+
                 // deal with the right flow
-//                cardLayout.next(cardPanel);
+    //                cardLayout.next(cardPanel);
                 currentCard = getCurrentCardName(cardPanel);
                 frame.setTitle(currentCard);
-                
+
             }
             private void clear() {
                 // Reset card 1
@@ -250,15 +248,15 @@ public class CheckInGUI extends JFrame{
         frame.setVisible(true);
     }
 
-   
-private String getCurrentCardName(Container container) {
-   for (Component component : container.getComponents()) {
-       if (component.isVisible() && component instanceof JPanel) {
-           return ((JPanel) component).getName();
+
+    private String getCurrentCardName(Container container) {
+       for (Component component : container.getComponents()) {
+           if (component.isVisible() && component instanceof JPanel) {
+               return ((JPanel) component).getName();
+           }
        }
-   }
-   return null;
-}
+       return null;
+    }
 //public static ArrayList<CheckInPassenger> addCheckPassenger(){
 //   ArrayList<CheckInPassenger> checkinpassengerList = CheckInPassenger.checkinPassengerList(checkinInfoS[0], checkinInfoS[1], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
 //   for (CheckInPassenger checkinpassenger : checkinpassengerList) {
