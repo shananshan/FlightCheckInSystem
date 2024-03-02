@@ -22,6 +22,7 @@ public class CheckInGUI extends JFrame {
     public static String[] checkinInfoS = new String[3];
     public static Double[] checkinInfoD = new Double[3];
     ArrayList checkinpassengerList = new ArrayList<>();
+   
 
     public CheckInGUI() throws IOException {
         initializeUI();
@@ -123,16 +124,27 @@ public class CheckInGUI extends JFrame {
         return card2;
     }
 
+
+
+
+
+     
+
+
+
+
+
     private JPanel createCard3() {
-    	 // get the output of the confirmation
-        JPanel card3 = new JPanel();
+//    	  get the output of the confirmation
+        JPanel card3 = new JPanel(new BorderLayout());
         card3.setName("Card3");
-        card3.add(new JLabel("Please review your details"));
+        JLabel title = new JLabel("Please review your details", SwingConstants.CENTER);
+        title.setFont(new Font("Serif", Font.BOLD, 20));
+        card3.add(title, BorderLayout.NORTH);
+
         JPanel chek = new JPanel(new FlowLayout(FlowLayout.CENTER));
         chek.setLayout(new GridLayout(2, 2));
         JPanel [] res = new JPanel[4];
-//        JLabel [] labels = new JLabel[4];
-//        String[] name2 = {"Full Name", "Flight Code", "Booking Code", "Fee"};
         for(int i=0; i<4; ++i){
             res[i] = new JPanel();
             labels[i] = new JLabel(name2[i] + ":");
@@ -140,36 +152,24 @@ public class CheckInGUI extends JFrame {
             chek.add(res[i]);
         }
         card3.add(chek);
-        return card3;
+    	
+    	    
+    	    return card3;
+    	
+
     }
+  
+
+    	
 
 
     private JPanel createCard4() {
         JPanel card4 = new JPanel(new BorderLayout()); // 使用BorderLayout布局
         card4.setName("Card4");
-
-        JLabel paymentLabel = new JLabel("Please pay your excess baggage fee: ", SwingConstants.CENTER);
-        card4.add(paymentLabel, BorderLayout.NORTH);
-//
-//        JPanel feePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-//        feePanel.add(new JLabel("Fee: £" + checkinInfoD[2]));
-//        if (checkinInfoD[2] != null) {
-//            feePanel.add(new JLabel("Fee: £" + checkinInfoD[2]));
-//        } else {
-//            feePanel.add(new JLabel("Fee: Not Calculated"));
-//        }
-//        card4.add(feePanel, BorderLayout.CENTER);
-////        JButton payButton = new JButton("Pay Fee");
-////        payButton.addActionListener(new ActionListener() {
-////            @Override
-////            public void actionPerformed(ActionEvent e) {
-////                // 支付逻辑处理
-////                JOptionPane.showMessageDialog(card4, "Payment Successful!");
-////                cardLayout.show(cardPanel, "Card1"); // 支付成功后跳转回Card1
-////            }
-////        });
-////        card4.add(payButton, BorderLayout.SOUTH);
-//        card4.add(paymentLabel);
+       
+        JLabel paymentLabel = new JLabel("Please pay your excess baggage fee", SwingConstants.CENTER);
+        paymentLabel.setFont(new Font("Please pay your excess baggage fee", Font.BOLD, 20)); // 设置文字大小
+        card4.add(paymentLabel, BorderLayout.CENTER);
 
         return card4;
     }
@@ -221,7 +221,7 @@ public class CheckInGUI extends JFrame {
                     wi = Double.valueOf(filedBags[3].getText());
                     double fee = f.calculateFee(wi,h,l,w);
 //                    double fee = 50;
-                    System.out.println(fee);
+                   
                     
                     labels[0].setText(name2[0] + ": " + p.name);
                     labels[1].setText(name2[1] + ": " + p.flightCode);
@@ -279,7 +279,6 @@ public class CheckInGUI extends JFrame {
         }
     }
 
-
     private void resetForm() {
         // Reset all fields and data here
         textField1.setText("");
@@ -289,8 +288,6 @@ public class CheckInGUI extends JFrame {
         }
         // Reset other UI components and data structures as needed
     }
-
-
 
     private String getCurrentCardName(Container container) {
         for (Component comp : container.getComponents()) {
@@ -302,6 +299,8 @@ public class CheckInGUI extends JFrame {
     }
 
     public static void main(String[] args) {
+    	 System.setProperty("user.language", "en");
+    	 System.setProperty("user.country", "US");
         SwingUtilities.invokeLater(() -> {
             try {
                 new CheckInGUI().setVisible(true);
@@ -310,6 +309,4 @@ public class CheckInGUI extends JFrame {
             }
         });
     }
-}
-//}
 }
