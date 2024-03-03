@@ -8,7 +8,7 @@ public class ReportTest {
         CheckInPassenger pas = new CheckInPassenger("PA-5723","ZOE","PA-108489",230,30,200);
         checkInPas.add(pas);
         Report report = new Report(checkInPas);
-        String filePath = "/Users/gw/Documents/大四下/F21AS/test_report.txt";
+        String filePath = "test_report.txt";
 
        
         report.generateReport(filePath);
