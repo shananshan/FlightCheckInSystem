@@ -41,12 +41,27 @@ public class FlightCheckInSystem {
         return flightList;
     }
 
-    public boolean checkIn(String lastname, String Code){
-        for(Passenger p: passengerList){
-            if(p.checkOne(lastname, Code))
+    public boolean checkIn(String lastname, String code) {
+    	//Booking Code Format exception
+        try {
+            validateBookingCodeFormat(code);
+        } catch (MyException e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+
+        for (Passenger p : passengerList) {
+            if (p.checkOne(lastname, code))
                 return true;
         }
         return false;
+    }
+    
+    void validateBookingCodeFormat(String code) throws MyException {
+        // Ensure the booking code follows the format "AB-123456"
+        if (!code.matches("^[A-Z]{2}-\\d{6}$")) {
+            throw new MyException("Invalid booking code format. Please use the format 'AB-123456'.");
+        }
     }
 
     public static Passenger getPassenger(String lastname, String Code){
