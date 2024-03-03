@@ -1,6 +1,6 @@
 public class ReportTest {
 
-    public static void main(String[] args) {
+	public void testReport() {
         
         Report report = new Report();
 
