@@ -267,7 +267,7 @@ public class CheckInGUI extends JFrame {
                     checkinInfoD[0] = wi*h*l;
                     checkinInfoD[1] = w;
                     checkinInfoD[2] = fee;
-//                    System.out.println(checkinInfoD[2]);
+                    System.out.println(checkinInfoD[0]);
                     if(fee > 0) {
 //                    	  card4.add(new JLabel("Please pay your excess baggage fee:" + fee+"拢"));
 //                       
