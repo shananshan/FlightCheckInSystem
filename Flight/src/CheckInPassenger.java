@@ -3,9 +3,9 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.util.ArrayList;
 
 public class CheckInPassenger {
-	// flight code, name, size, weight, fee
+    // flight code, name, size, weight, fee
 
-	private String flightCode;
+    private String flightCode;
     private String name;
     private String bookingCode;
     private double size;
