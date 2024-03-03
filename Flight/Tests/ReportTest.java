@@ -1,5 +1,5 @@
 public class ReportTest {
-
+@Test
 	public void testReport() {
         
         Report report = new Report();
