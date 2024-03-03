@@ -67,26 +67,26 @@ public class CheckInGUI extends JFrame {
         
         // Add components to card1...
     	  // page1  ask for the input part
-        JPanel card1 = new JPanel(new GridLayout(3, 1)); // 使用GridLayout使组件垂直居中
+        JPanel card1 = new JPanel(new GridLayout(3, 1)); // 浣跨敤GridLayout浣跨粍浠跺瀭鐩村眳涓�
         card1.setName("Card1");
-//        JTextField textField1 = new JTextField(15); // 设置文本框的宽度
+//        JTextField textField1 = new JTextField(15); // 璁剧疆鏂囨湰妗嗙殑瀹藉害
 //        JTextField textField2 = new JTextField(15);
-        // 创建包含标题的面板，使用FlowLayout居中对齐
+        // 鍒涘缓鍖呭惈鏍囬鐨勯潰鏉匡紝浣跨敤FlowLayout灞呬腑瀵归綈
         JPanel welcomeTitle = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel tname = new JLabel("Check In Here!");
-        tname.setFont(new Font("Serif", Font.BOLD, 20)); // 设置文字大小
+        tname.setFont(new Font("Serif", Font.BOLD, 20)); // 璁剧疆鏂囧瓧澶у皬
         welcomeTitle.add(tname);
-        // 创建输入姓氏的面板，使用FlowLayout居中对齐
+        // 鍒涘缓杈撳叆濮撴皬鐨勯潰鏉匡紝浣跨敤FlowLayout灞呬腑瀵归綈
         JPanel inputLastName = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        inputLastName.add(new JLabel("Input Last Name:     ")); // 添加标签来标识输入框
+        inputLastName.add(new JLabel("Input Last Name:     ")); // 娣诲姞鏍囩鏉ユ爣璇嗚緭鍏ユ
         inputLastName.setFont(inputLastName.getFont().deriveFont(18f));// change the size of the lable
-        inputLastName.add(textField1); // 添加文本框
-        // 创建输入预定码的面板，使用FlowLayout居中对齐
+        inputLastName.add(textField1); // 娣诲姞鏂囨湰妗�
+        // 鍒涘缓杈撳叆棰勫畾鐮佺殑闈㈡澘锛屼娇鐢‵lowLayout灞呬腑瀵归綈
         JPanel inputBookingCode = new JPanel(new FlowLayout(FlowLayout.CENTER));
         inputBookingCode.add(new JLabel("Input Booking code:"));
         inputBookingCode.setFont(inputBookingCode.getFont().deriveFont(18f));// change the size of the lable
-        inputBookingCode.add(textField2); // 添加文本框
-        // 将面板添加到card1
+        inputBookingCode.add(textField2); // 娣诲姞鏂囨湰妗�
+        // 灏嗛潰鏉挎坊鍔犲埌card1
         card1.add(welcomeTitle);
         card1.add(inputLastName);
         card1.add(inputBookingCode);
@@ -164,11 +164,11 @@ public class CheckInGUI extends JFrame {
 
 
     private JPanel createCard4() {
-        JPanel card4 = new JPanel(new BorderLayout()); // 使用BorderLayout布局
+        JPanel card4 = new JPanel(new BorderLayout()); // 浣跨敤BorderLayout甯冨眬
         card4.setName("Card4");
        
         JLabel paymentLabel = new JLabel("Please pay your excess baggage fee", SwingConstants.CENTER);
-        paymentLabel.setFont(new Font("Please pay your excess baggage fee", Font.BOLD, 20)); // 设置文字大小
+        paymentLabel.setFont(new Font("Please pay your excess baggage fee", Font.BOLD, 20)); // 璁剧疆鏂囧瓧澶у皬
         card4.add(paymentLabel, BorderLayout.CENTER);
 
         return card4;
@@ -188,28 +188,60 @@ public class CheckInGUI extends JFrame {
     private void handleSwitchButtonClick() {
         String currentCard = getCurrentCardName(cardPanel);
         switch (currentCard) {
-            case "Card1":
-            	 System.out.println(textField1.getText());
-                 System.out.println(textField2.getText());
-                if(textField1.getText().isEmpty() || textField2.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Please enter your last name and booking number!");
-                } else if (!fcs.checkIn(textField1.getText(), textField2.getText())) {
-                    JOptionPane.showMessageDialog(this, "Information mismatch. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (CheckInPassenger.duplicatePassenger(textField2.getText(), checkinpassengerList)) {
-                    JOptionPane.showMessageDialog(this, "Passenger duplicate", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                	System.out.println("success");
-                    Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
-                    fname.setText("Full Name: " + p.name);
-                    fcode.setText("Flight Code: " + p.flightCode);
-                    fbcode.setText("Booking Code: " + p.bookingRefCode);
-                    checkinInfoS[0] = p.name;
-                    checkinInfoS[1] = p.flightCode;
-                    checkinInfoS[2] = textField2.getText();
-                    cardLayout.show(cardPanel, "Card2");
-                    switchButton.setText("Submit Baggage Info");
-                }
-                break;
+//            case "Card1":           	
+//            	 System.out.println(textField1.getText());
+//                 System.out.println(textField2.getText());
+//                if(textField1.getText().isEmpty() || textField2.getText().isEmpty()) {
+//                    JOptionPane.showMessageDialog(this, "Please enter your last name and booking number!");
+//                } else if (!fcs.checkIn(textField1.getText(), textField2.getText())) {
+//                    JOptionPane.showMessageDialog(this, "Information mismatch. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+//                } else if (CheckInPassenger.duplicatePassenger(textField2.getText(), checkinpassengerList)) {
+//                    JOptionPane.showMessageDialog(this, "Passenger duplicate", "Error", JOptionPane.ERROR_MESSAGE);
+//                } else {
+//                	System.out.println("success");
+//                    Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
+//                    fname.setText("Full Name: " + p.name);
+//                    fcode.setText("Flight Code: " + p.flightCode);
+//                    fbcode.setText("Booking Code: " + p.bookingRefCode);
+//                    checkinInfoS[0] = p.name;
+//                    checkinInfoS[1] = p.flightCode;
+//                    checkinInfoS[2] = textField2.getText();
+//                    cardLayout.show(cardPanel, "Card2");
+//                    switchButton.setText("Submit Baggage Info");
+//                }
+//                break;
+            	
+        case "Card1":
+        	try {
+        	    if (!isValidBookingCode(textField2.getText())) {
+        	        throw new MyException("Invalid booking code format. Please enter a code in the format 'XX-123456'.");
+        	    }
+        	} catch (MyException e) {
+        	    JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	    return;
+        	}
+
+
+            if (textField1.getText().isEmpty() || textField2.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter your last name and booking number!");
+            } else if (!fcs.checkIn(textField1.getText(), textField2.getText())) {
+                JOptionPane.showMessageDialog(this, "Information mismatch. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (CheckInPassenger.duplicatePassenger(textField2.getText(), checkinpassengerList)) {
+                JOptionPane.showMessageDialog(this, "Passenger duplicate", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                System.out.println("success");
+                Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
+                fname.setText("Full Name: " + p.name);
+                fcode.setText("Flight Code: " + p.flightCode);
+                fbcode.setText("Booking Code: " + p.bookingRefCode);
+                checkinInfoS[0] = p.name;
+                checkinInfoS[1] = p.flightCode;
+                checkinInfoS[2] = textField2.getText();
+                cardLayout.show(cardPanel, "Card2");
+                switchButton.setText("Submit Baggage Info");
+            }
+            break;    
+        
             case "Card2":
             	Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
                 Flight f = fcs.getFlight(p.getFlightCode());
@@ -226,7 +258,7 @@ public class CheckInGUI extends JFrame {
                     labels[0].setText(name2[0] + ": " + p.name);
                     labels[1].setText(name2[1] + ": " + p.flightCode);
                     labels[2].setText(name2[2] + ": " + p.bookingRefCode);
-                    labels[3].setText(name2[3] + ": " + Double.toString(fee)+"£");
+                    labels[3].setText(name2[3] + ": " + Double.toString(fee)+"拢");
                     if(filedBags[0].getText().isEmpty() && filedBags[1].getText().isEmpty() && filedBags[2].getText().isEmpty() && filedBags[3].getText().isEmpty()) {
                         JOptionPane.showMessageDialog(this, "Please enter valid numbers for baggage dimensions and weight!");
                         return;
@@ -237,7 +269,7 @@ public class CheckInGUI extends JFrame {
                     checkinInfoD[2] = fee;
 //                    System.out.println(checkinInfoD[2]);
                     if(fee > 0) {
-//                    	  card4.add(new JLabel("Please pay your excess baggage fee:" + fee+"£"));
+//                    	  card4.add(new JLabel("Please pay your excess baggage fee:" + fee+"拢"));
 //                       
                         
                        switchButton.setText("Pay");
@@ -265,9 +297,9 @@ public class CheckInGUI extends JFrame {
                 break;
             case "Card4":
                 // Assuming payment is always successful for this example
-//            	this.add(new JLabel("Please pay your excess baggage fee:" +checkinInfoD[2] +"£"));
-//            	createCard4().add(new JLabel("Please pay your excess baggage fee:" +checkinInfoD[2] +"£"));
-            	JOptionPane.showMessageDialog(this, "Your fee is: £" + checkinInfoD[2], "Fee Details", JOptionPane.INFORMATION_MESSAGE);
+//            	this.add(new JLabel("Please pay your excess baggage fee:" +checkinInfoD[2] +"拢"));
+//            	createCard4().add(new JLabel("Please pay your excess baggage fee:" +checkinInfoD[2] +"拢"));
+            	JOptionPane.showMessageDialog(this, "Your fee is: 拢" + checkinInfoD[2], "Fee Details", JOptionPane.INFORMATION_MESSAGE);
                 JOptionPane.showMessageDialog(this, "Payment Successful! Thank you for checking in.", "Payment", JOptionPane.INFORMATION_MESSAGE);
                 resetForm();
                 cardLayout.show(cardPanel, "Card1");
@@ -279,6 +311,14 @@ public class CheckInGUI extends JFrame {
         }
     }
 
+    private boolean isValidBookingCode(String bookingCode) {
+        // Implement your booking code validation logic here
+        // For example, check if the booking code follows the format 'XX-123456'
+        // You can use regular expressions for this validation
+        // Return true if valid, false otherwise
+        return bookingCode.matches("[A-Z]{2}-\\d{6}");
+    }
+    
     private void resetForm() {
         // Reset all fields and data here
         textField1.setText("");
