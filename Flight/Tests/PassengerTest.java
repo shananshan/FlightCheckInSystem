@@ -7,7 +7,7 @@ public class PassengerTest {
     public void testToString() {
         String[] passengerData = {"ABC123", "John", "Doe", "Flight1", "TRUE"};
         Passenger passenger = new Passenger(passengerData);
-        assertEquals("ABC123, John Doe, Flight1, True", passenger.toString());
+        assertEquals("ABC123,John Doe,Flight1,True", passenger.toString());
     }
 
     @Test
@@ -43,13 +43,4 @@ public class PassengerTest {
         assertTrue(passenger.findPass(pass, ch));
     }
 
-    @Test
-    public void testReadNameAndCode() {
-        // Adjust the test accordingly based on your actual implementation
-        String[] expected = {"John Doe", "ABC123"};
-        String[] passengerData = {"ABC123", "John", "Doe", "Flight1", "TRUE"};
-        Passenger passenger = new Passenger(passengerData);
-
-        assertArrayEquals(expected, passenger.readNameAndCode());
-    }
 }

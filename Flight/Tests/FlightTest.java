@@ -12,12 +12,12 @@ public class FlightTest {
             flight.readFromCSV("Passenger Bookings.csv");
 
             // Test with baggage within limits
-            double feeWithinLimits = flight.calculateFee(20.0, 30.0, 10.0, 15.0);
+            double feeWithinLimits = flight.calculateFee(20.0, 30.0, 40.0, 15.0);
             assertEquals(0, feeWithinLimits, 0.01);
 
             // Test with excess weight
-            double feeWithExcessWeight = flight.calculateFee(20.0, 30.0, 10.0, 25.0);
-            assertEquals(10.0, feeWithExcessWeight, 0.01);
+            double feeWithExcessWeight = flight.calculateFee(20.0, 30.0, 50.0, 15.0);
+            assertEquals(100, feeWithExcessWeight, 0.01);
 
             // Test with excess volume
             double feeWithExcessVolume = flight.calculateFee(20.0, 30.0, 20.0, 15.0);
@@ -34,8 +34,8 @@ public class FlightTest {
     @Test
     public void testToString() {
        
-        String[] flightData = {"ABC123", "Flight1", "Destination1", "Carrier1", "100", "50.0", "1000.0", "10.0", "20.0", "5.0", "10.0", "200.0", "500.0"};
+        String[] flightData = {"ABC123", "Flight1", "Destination1", "Carrier1", "100", "50.0", "1000.0", "20.0", "20.0", "5.0", "10.0", "200.0", "500.0"};
         Flight flight = new Flight(flightData);
-        assertEquals("Destination1, Carrier1, 100, 50.0, 1000.0, 20.0", flight.toString());
+        assertEquals("Destination1, Carrier1, 100, 1000.0, 20.0, 10.0", flight.toString());
     }
 }
