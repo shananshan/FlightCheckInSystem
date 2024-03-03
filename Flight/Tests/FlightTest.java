@@ -6,7 +6,8 @@ public class FlightTest {
 
     @Test
     public void testCalculateFee() {
-        Flight flight = new Flight();
+        String[] flightData = {"ABC123", "Flight1", "Destination1", "Carrier1", "100", "50.0", "40.0", "24000.0", "20.0", "5.0", "10.0", "200.0", "500.0"};
+        Flight flight = new Flight(flightData);
       
         try {
             flight.readFromCSV("Passenger Bookings.csv");
@@ -17,15 +18,15 @@ public class FlightTest {
 
             // Test with excess weight
             double feeWithExcessWeight = flight.calculateFee(20.0, 30.0, 50.0, 15.0);
-            assertEquals(100, feeWithExcessWeight, 0.01);
+            assertEquals(60000, feeWithExcessWeight, 0.01);
 
             // Test with excess volume
-            double feeWithExcessVolume = flight.calculateFee(20.0, 30.0, 20.0, 15.0);
-            assertEquals(200.0, feeWithExcessVolume, 0.01);
+            double feeWithExcessVolume = flight.calculateFee(20.0, 30.0, 20.0, 85.0);
+            assertEquals(225.0, feeWithExcessVolume, 0.01);
 
             // Test with both excess weight and volume
-            double feeWithBothExcess = flight.calculateFee(20.0, 30.0, 20.0, 25.0);
-            assertEquals(210.0, feeWithBothExcess, 0.01);
+            double feeWithBothExcess = flight.calculateFee(20.0, 30.0, 70.0, 55.0);
+            assertEquals(180075.0, feeWithBothExcess, 0.01);
         } catch (IOException e) {
             fail("IOException occurred while reading test data.");
         }
