@@ -13,12 +13,12 @@ public class CheckInPassenger {
     private double fee;
 
     public CheckInPassenger(String flightCode, String name,String bookingCode, double size, double weight, double fee) {
-        this.name = CheckInGUI.checkinInfoS[0];
-    	this.flightCode = CheckInGUI.checkinInfoS[1];
-        this.bookingCode = CheckInGUI.checkinInfoS[2];
-        this.size = CheckInGUI.checkinInfoD[0];
-        this.weight = CheckInGUI.checkinInfoD[1];
-        this.fee = CheckInGUI.checkinInfoD[2];
+        this.flightCode = flightCode;
+        this.name = name;
+        this.bookingCode = bookingCode;
+        this.size = size;
+        this.weight = weight;
+        this.fee = fee;
     }
 
     // Getter and setter methods for each attribute
@@ -70,7 +70,6 @@ public class CheckInPassenger {
     public static boolean duplicatePassenger(String newFlightCode, ArrayList<CheckInPassenger> checkinpassengerList){
         boolean duplicatePassenger = false;
         for (CheckInPassenger passenger : checkinpassengerList){
-
             if (passenger.getBookingCode().equals(newFlightCode)){
                 duplicatePassenger = true;
             }
