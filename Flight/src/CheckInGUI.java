@@ -188,28 +188,6 @@ public class CheckInGUI extends JFrame {
     private void handleSwitchButtonClick() {
         String currentCard = getCurrentCardName(cardPanel);
         switch (currentCard) {
-//            case "Card1":           	
-//            	 System.out.println(textField1.getText());
-//                 System.out.println(textField2.getText());
-//                if(textField1.getText().isEmpty() || textField2.getText().isEmpty()) {
-//                    JOptionPane.showMessageDialog(this, "Please enter your last name and booking number!");
-//                } else if (!fcs.checkIn(textField1.getText(), textField2.getText())) {
-//                    JOptionPane.showMessageDialog(this, "Information mismatch. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-//                } else if (CheckInPassenger.duplicatePassenger(textField2.getText(), checkinpassengerList)) {
-//                    JOptionPane.showMessageDialog(this, "Passenger duplicate", "Error", JOptionPane.ERROR_MESSAGE);
-//                } else {
-//                	System.out.println("success");
-//                    Passenger p = fcs.getPassenger(textField1.getText(), textField2.getText());
-//                    fname.setText("Full Name: " + p.name);
-//                    fcode.setText("Flight Code: " + p.flightCode);
-//                    fbcode.setText("Booking Code: " + p.bookingRefCode);
-//                    checkinInfoS[0] = p.name;
-//                    checkinInfoS[1] = p.flightCode;
-//                    checkinInfoS[2] = textField2.getText();
-//                    cardLayout.show(cardPanel, "Card2");
-//                    switchButton.setText("Submit Baggage Info");
-//                }
-//                break;
             	
         case "Card1":
         	try {
@@ -338,15 +316,4 @@ public class CheckInGUI extends JFrame {
         return null;
     }
 
-    public static void main(String[] args) {
-    	 System.setProperty("user.language", "en");
-    	 System.setProperty("user.country", "US");
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new CheckInGUI().setVisible(true);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
 }
