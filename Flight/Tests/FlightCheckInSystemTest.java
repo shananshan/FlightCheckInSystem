@@ -2,13 +2,19 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * JUnit test class for the FlightCheckInSystem functionality.
+ */
 public class FlightCheckInSystemTest {
-    //53:"PA-345219"->"PA-5723";    34:"3PA-345219"->"PA-345219";   17:"ABC123"->"DA-874156";   13:"Flight Detail¡¢.csv"->"Flight Detail.csv";
+    // Test data: "PA-345219"->"PA-5723";    "3PA-345219"->"PA-345219";   "ABC123"->"DA-874156";   "Flight Detail隆垄.csv"->"Flight Detail.csv";
 
+    /**
+     * Test case for the check-in functionality in FlightCheckInSystem.
+     */
     @Test
     public void testCheckIn() {
         FlightCheckInSystem checkInSystem = new FlightCheckInSystem();
-        
+
         try {
             checkInSystem.readFlights("Flight Detail.csv");
             checkInSystem.readPassengers("Passenger Bookings.csv");
@@ -23,6 +29,9 @@ public class FlightCheckInSystemTest {
         }
     }
 
+    /**
+     * Test case for retrieving passenger information in FlightCheckInSystem.
+     */
     @Test
     public void testGetPassenger() {
         FlightCheckInSystem checkInSystem = new FlightCheckInSystem();
@@ -42,10 +51,13 @@ public class FlightCheckInSystemTest {
         }
     }
 
+    /**
+     * Test case for retrieving flight information in FlightCheckInSystem.
+     */
     @Test
     public void testGetFlight() {
         FlightCheckInSystem checkInSystem = new FlightCheckInSystem();
-        
+
         try {
             checkInSystem.readFlights("Flight Detail.csv");
 
