@@ -50,11 +50,14 @@ public class CheckInGUI extends JFrame {
             fcs.readPassengers("Passenger Bookings.csv");
             fcs.readFlights("Flight Detail.csv");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
+        } catch (MyException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); // 自定义异常处理
         }
     }
+
 
     private void createCardPanel() {
     	cardPanel.add(createWelcomeCard(), "WelcomeCard");
