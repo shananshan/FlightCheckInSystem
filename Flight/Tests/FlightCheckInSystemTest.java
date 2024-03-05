@@ -14,7 +14,7 @@ public class FlightCheckInSystemTest {
     @Test
     public void testCheckIn() {
         FlightCheckInSystem checkInSystem = new FlightCheckInSystem();
-
+        
         try {
             checkInSystem.readFlights("Flight Detail.csv");
             checkInSystem.readPassengers("Passenger Bookings.csv");
@@ -22,10 +22,13 @@ public class FlightCheckInSystemTest {
             // Test a successful check-in
             assertTrue(checkInSystem.checkIn("Smith", "DA-874156"));
 
-            // Test an unsuccessful check-in
+            // Test an unsuccessful check-in due to non-existent passenger
             assertFalse(checkInSystem.checkIn("NonExistent", "XY-3456"));
         } catch (IOException e) {
             fail("IOException occurred while reading test data.");
+        } catch (MyException e) {
+            // If a MyException occurs, it indicates that the test data is in the wrong format.
+            fail("MyException occurred: " + e.getMessage());
         }
     }
 
@@ -70,6 +73,9 @@ public class FlightCheckInSystemTest {
             assertNull(nonExistentFlight);
         } catch (IOException e) {
             fail("IOException occurred while reading test data.");
+        } catch (MyException e) {
+            // If a MyException occurs, it indicates that the test data was formatted incorrectly
+            fail("MyException occurred: " + e.getMessage());
         }
     }
 }
