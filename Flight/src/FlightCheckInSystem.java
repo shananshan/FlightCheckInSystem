@@ -15,15 +15,23 @@ public class FlightCheckInSystem {
     static List<Passenger> passengerList;
     List<Flight> flightList;
 
-    public void readFlights(String csvFilePath) throws IOException {
+    public void readFlights(String csvFilePath) throws IOException, MyException{
         BufferedReader reader = new BufferedReader(new FileReader(csvFilePath));
         String line = reader.readLine();
         while ((line = reader.readLine()) != null) {
             String[] data = line.split(",");
+            validateFlightCodeFormat(data[0]);
             flightList.add(new Flight(data));
         }
     }
 
+    void validateFlightCodeFormat(String code) throws MyException {
+        // Check the format of flightCode
+        if (!code.matches("^[A-Z]{2}-\\d{4}$")) {
+            throw new MyException("Invalid flightCode format: " + code + ". Please use the format 'AA-1234'.");
+        }
+    }
+    
     public void readPassengers(String csvFilePath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(csvFilePath));
         String line = reader.readLine();
