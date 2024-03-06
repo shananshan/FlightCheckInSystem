@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CheckInPassenger {
@@ -10,7 +11,11 @@ public class CheckInPassenger {
     private double weight;      // sum the weight
     private double fee;         // sum the fee
 
-    public CheckInPassenger(String flightCode, String name,String bookingCode, double size, double weight, double fee) {
+    // create a constructor and throw exception
+    public CheckInPassenger(String flightCode, String name,String bookingCode, double size, double weight, double fee) throws MyException {
+        if (bookingCode == null || bookingCode.isEmpty() || !bookingCode.matches("^[A-Z]{2}-\\d{6}$")) {
+            throw new MyException("Invalid booking reference code.");
+        }
         this.flightCode = flightCode;
         this.name = name;
         this.bookingCode = bookingCode;
@@ -67,7 +72,7 @@ public class CheckInPassenger {
     }
 
     public static boolean duplicatePassenger(String newFlightCode, ArrayList<CheckInPassenger> checkinpassengerList){
-        // check if the passenger has checked
+
         boolean duplicatePassenger = false;
         for (CheckInPassenger passenger : checkinpassengerList){
             if (passenger.getBookingCode().equals(newFlightCode)){

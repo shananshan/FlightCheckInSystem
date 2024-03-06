@@ -22,7 +22,7 @@ public class CheckInGUI extends JFrame {
     private FlightCheckInSystem fcs = new FlightCheckInSystem();
     public static String[] checkinInfoS = new String[3];
     public static Double[] checkinInfoD = new Double[3];
-    ArrayList checkinpassengerList = new ArrayList<>();
+    ArrayList checkinpassengerList = new ArrayList<>(); // store all the checked passenger
     
     public CheckInGUI() throws IOException {
         initializeUI();
@@ -65,8 +65,6 @@ public class CheckInGUI extends JFrame {
     }
 
 
-
-
     private void createCardPanel() {
     	cardPanel.add(createWelcomeCard(), "WelcomeCard");
         cardPanel.add(createCard1(), "Card1");
@@ -82,7 +80,7 @@ public class CheckInGUI extends JFrame {
                 super.paintComponent(g);
                 
                 ImageIcon background = new ImageIcon("15.gif");
-                // 缁樺埗鑳屾櫙鍥剧墖
+                // 绘制背景图片
                 g.drawImage(background.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
             }
         };
@@ -109,26 +107,26 @@ public class CheckInGUI extends JFrame {
     private JPanel createCard1() {
         
     	  // page1  ask for the input part
-        JPanel card1 = new JPanel(new GridLayout(3, 1)); // 娴ｈ法鏁ridLayout娴ｈ法绮嶆禒璺虹�惄鏉戠湷娑擄拷
+        JPanel card1 = new JPanel(new GridLayout(3, 1)); // 浣跨敤GridLayout浣跨粍浠跺瀭鐩村眳涓�
         card1.setName("Card1");
-//        JTextField textField1 = new JTextField(15); // 鐠佸墽鐤嗛弬鍥ㄦ拱濡楀棛娈戠�硅棄瀹�
+//        JTextField textField1 = new JTextField(15); // 璁剧疆鏂囨湰妗嗙殑瀹藉害
 //        JTextField textField2 = new JTextField(15);
-        // 閸掓稑缂撻崠鍛儓閺嶅洭顣介惃鍕桨閺夊尅绱濇担璺ㄦ暏FlowLayout鐏炲懍鑵戠�靛綊缍�
+        // 鍒涘缓鍖呭惈鏍囬鐨勯潰鏉匡紝浣跨敤FlowLayout灞呬腑瀵归綈
         JPanel welcomeTitle = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel tname = new JLabel("Check In Here!");
-        tname.setFont(new Font("Serif", Font.BOLD, 25)); // 鐠佸墽鐤嗛弬鍥х摟婢堆冪毈
+        tname.setFont(new Font("Serif", Font.BOLD, 25)); // 璁剧疆鏂囧瓧澶у皬
         welcomeTitle.add(tname);
-        // 閸掓稑缂撴潏鎾冲弳婵挻鐨惃鍕桨閺夊尅绱濇担璺ㄦ暏FlowLayout鐏炲懍鑵戠�靛綊缍�
+        // 鍒涘缓杈撳叆濮撴皬鐨勯潰鏉匡紝浣跨敤FlowLayout灞呬腑瀵归綈
         JPanel inputLastName = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        inputLastName.add(new JLabel("Input Last Name:     ")); // 濞ｈ濮為弽鍥╊劮閺夈儲鐖ｇ拠鍡氱翻閸忋儲顢�
+        inputLastName.add(new JLabel("Input Last Name:     ")); // 娣诲姞鏍囩鏉ユ爣璇嗚緭鍏ユ
         inputLastName.setFont(inputLastName.getFont().deriveFont(18f));// change the size of the lable
-        inputLastName.add(textField1); // 濞ｈ濮為弬鍥ㄦ拱濡楋拷
-        // 閸掓稑缂撴潏鎾冲弳妫板嫬鐣鹃惍浣烘畱闂堛垺婢橀敍灞煎▏閻⑩�祃owLayout鐏炲懍鑵戠�靛綊缍�
+        inputLastName.add(textField1); // 娣诲姞鏂囨湰妗�
+        // 鍒涘缓杈撳叆棰勫畾鐮佺殑闈㈡澘锛屼娇鐢‵lowLayout灞呬腑瀵归綈
         JPanel inputBookingCode = new JPanel(new FlowLayout(FlowLayout.CENTER));
         inputBookingCode.add(new JLabel("Input Booking code:"));
         inputBookingCode.setFont(inputBookingCode.getFont().deriveFont(18f));// change the size of the lable
-        inputBookingCode.add(textField2); // 濞ｈ濮為弬鍥ㄦ拱濡楋拷
-        // 鐏忓棝娼伴弶鎸庡潑閸旂姴鍩宑ard1
+        inputBookingCode.add(textField2); // 娣诲姞鏂囨湰妗�
+        // 灏嗛潰鏉挎坊鍔犲埌card1
         card1.add(welcomeTitle);
         card1.add(inputLastName);
         card1.add(inputBookingCode);
@@ -168,23 +166,23 @@ public class CheckInGUI extends JFrame {
     private JPanel createCard2() {
         JPanel card2 = new JPanel();
         card2.setName("Card2");
-        card2.setLayout(new BorderLayout()); // 璁剧疆涓诲竷灞�涓築orderLayout
+        card2.setLayout(new BorderLayout()); // 设置主布局为BorderLayout
 
-        // 鍒涘缓骞舵坊鍔犱箻瀹㈣缁嗕俊鎭殑鏍囬
+        // 创建并添加乘客详细信息的标题
         JLabel baggageInfoTitle = new JLabel("Enter your baggage information.", SwingConstants.CENTER);
         baggageInfoTitle.setFont(new Font("Serif", Font.BOLD, 24));
         card2.add(baggageInfoTitle, BorderLayout.NORTH);
-        // 涔樺淇℃伅鍜岃鏉庝俊鎭潰鏉匡紝浣跨敤BoxLayout鍨傜洿鎺掑垪
+        // 乘客信息和行李信息面板，使用BoxLayout垂直排列
         JPanel detailsPanel = new JPanel();
         detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
-        // 娣诲姞涔樺淇℃伅
+        // 添加乘客信息
         JPanel passengerDetailsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         passengerDetailsPanel.add(fname);
         passengerDetailsPanel.add(fcode);
         passengerDetailsPanel.add(fbcode);
         detailsPanel.add(passengerDetailsPanel);
-        // 琛屾潕淇℃伅杈撳叆鍖哄煙
-        JPanel baggageInputPanel = new JPanel(new GridLayout(2, 2, 5, 5)); // 浣跨敤GridLayout锛岃缃按骞冲拰鍨傜洿闂磋窛
+        // 行李信息输入区域
+        JPanel baggageInputPanel = new JPanel(new GridLayout(2, 2, 5, 5)); // 使用GridLayout，设置水平和垂直间距
         for (int i = 0; i < 4; ++i) {
             JPanel bagPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             JLabel bagLabel = new JLabel(names[i] + ": " + units[i]);
@@ -196,7 +194,7 @@ public class CheckInGUI extends JFrame {
         }
         detailsPanel.add(baggageInputPanel);
 
-        // 灏嗚缁嗕俊鎭潰鏉挎坊鍔犲埌鍗＄墖涓績
+        // 将详细信息面板添加到卡片中心
         card2.add(detailsPanel, BorderLayout.CENTER);
 
         return card2;
@@ -255,11 +253,11 @@ public class CheckInGUI extends JFrame {
 
   
     private JPanel createCard4() {
-        JPanel card4 = new JPanel(new BorderLayout()); // 娴ｈ法鏁orderLayout鐢啫鐪�
+        JPanel card4 = new JPanel(new BorderLayout()); // 浣跨敤BorderLayout甯冨眬
         card4.setName("Card4");
        
         JLabel paymentLabel = new JLabel("Please pay your excess baggage fee", SwingConstants.CENTER);
-        paymentLabel.setFont(new Font("Please pay your excess baggage fee", Font.BOLD, 20)); // 鐠佸墽鐤嗛弬鍥х摟婢堆冪毈
+        paymentLabel.setFont(new Font("Please pay your excess baggage fee", Font.BOLD, 20)); // 璁剧疆鏂囧瓧澶у皬
         card4.add(paymentLabel, BorderLayout.CENTER);
 
         return card4;
@@ -323,7 +321,7 @@ public class CheckInGUI extends JFrame {
                     labels[0].setText(name2[0] + ": " + p.name);
                     labels[1].setText(name2[1] + ": " + p.flightCode);
                     labels[2].setText(name2[2] + ": " + p.bookingRefCode);
-                    labels[3].setText(name2[3] + ": " + Double.toString(fee)+"拢");
+                    labels[3].setText(name2[3] + ": " + Double.toString(fee)+"£");
                     if(filedBags[0].getText().isEmpty() && filedBags[1].getText().isEmpty() && filedBags[2].getText().isEmpty() && filedBags[3].getText().isEmpty()) {
                         JOptionPane.showMessageDialog(this, "Please enter valid numbers for baggage dimensions and weight!");
                         return;
@@ -345,8 +343,17 @@ public class CheckInGUI extends JFrame {
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, "Please enter valid numbers for baggage dimensions and weight!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                CheckInPassenger cp = new CheckInPassenger(checkinInfoS[0], checkinInfoS[1], checkinInfoS[2], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
-                checkinpassengerList.add(cp);
+
+                try{
+                    // Add information about passengers who have successfully checked to checkinpassengerList
+                    CheckInPassenger cp = new CheckInPassenger(checkinInfoS[0], checkinInfoS[1], checkinInfoS[2], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
+                    // Add cp to checked list
+                    checkinpassengerList.add(cp);
+                }catch(MyException e){
+                    System.out.println(e.getMessage());
+                }
+
+                // generate report
                 Report report = new Report(checkinpassengerList);
                 report.generateReport("report.txt");
                 break;
@@ -355,21 +362,21 @@ public class CheckInGUI extends JFrame {
                 resetForm();
 //                cardLayout.show(cardPanel, "Card1");
                 cardLayout.show(cardPanel, "WelcomeCard");
-                remove(switchButton); // 浠庡竷灞�涓Щ闄witchButton
-                this.validate(); // 鍒锋柊鐣岄潰浠ョЩ闄witchButton
+                remove(switchButton); // 从布局中移除switchButton
+                this.validate(); // 刷新界面以移除switchButton
 
                 break;
             case "Card4":
                 // Assuming payment is always successful for this example
           
-            	JOptionPane.showMessageDialog(this, "Your fee is: 拢" + checkinInfoD[2], "Fee Details", JOptionPane.INFORMATION_MESSAGE);
+            	JOptionPane.showMessageDialog(this, "Your fee is: £" + checkinInfoD[2], "Fee Details", JOptionPane.INFORMATION_MESSAGE);
                 JOptionPane.showMessageDialog(this, "Payment Successful! Thank you for checking in.", "Payment", JOptionPane.INFORMATION_MESSAGE);
                 resetForm();
 //                cardLayout.show(cardPanel, "Card1");
                 cardLayout.show(cardPanel, "WelcomeCard");
 //                switchButton.setText("Start Check-In");
-                remove(switchButton); // 浠庡竷灞�涓Щ闄witchButton
-                this.validate(); // 鍒锋柊鐣岄潰浠ョЩ闄witchButton
+                remove(switchButton); // 从布局中移除switchButton
+                this.validate(); // 刷新界面以移除switchButton
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Unknown card.", "Error", JOptionPane.ERROR_MESSAGE);
