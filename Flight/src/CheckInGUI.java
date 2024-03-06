@@ -163,7 +163,7 @@ public class CheckInGUI extends JFrame {
 //        card2.add(inputBagg);
 //        return card2;
 //    }
-    private JPanel createCard2() {
+     private JPanel createCard2() {
         JPanel card2 = new JPanel();
         card2.setName("Card2");
         card2.setLayout(new BorderLayout()); // 设置主布局为BorderLayout
@@ -185,11 +185,14 @@ public class CheckInGUI extends JFrame {
         JPanel baggageInputPanel = new JPanel(new GridLayout(2, 2, 5, 5)); // 使用GridLayout，设置水平和垂直间距
         for (int i = 0; i < 4; ++i) {
             JPanel bagPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            JLabel bagLabel = new JLabel(names[i] + ": " + units[i]);
+            JLabel bagLabel = new JLabel(names[i] + ": " );
             bagLabel.setFont(new Font("Serif",Font.CENTER_BASELINE, 15));
             filedBags[i] = new JTextField(10);
             bagPanel.add(bagLabel);
             bagPanel.add(filedBags[i]);
+            JLabel Label = new JLabel(units[i] );
+            Label.setFont(new Font("Serif",Font.CENTER_BASELINE, 15));
+            bagPanel.add(Label);
             baggageInputPanel.add(bagPanel);
         }
         detailsPanel.add(baggageInputPanel);
