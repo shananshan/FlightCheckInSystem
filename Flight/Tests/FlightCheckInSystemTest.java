@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * JUnit test class for the FlightCheckInSystem functionality.
  */
 public class FlightCheckInSystemTest {
-    // Test data: "PA-345219"->"PA-5723";    "3PA-345219"->"PA-345219";   "ABC123"->"DA-874156";   "Flight Detail隆垄.csv"->"Flight Detail.csv";
+    // Test data: "PA-345219"->"PA-5723";    "3PA-345219"->"PA-345219";   "ABC123"->"DA-874156";   "Flight Detail闅嗗瀯.csv"->"Flight Detail.csv";
 
     /**
      * Test case for the check-in functionality in FlightCheckInSystem.
@@ -26,11 +26,20 @@ public class FlightCheckInSystemTest {
             assertFalse(checkInSystem.checkIn("NonExistent", "XY-3456"));
         } catch (IOException e) {
             fail("IOException occurred while reading test data.");
+        } catch (AggregateException e) {
+            StringBuilder errorMessage = new StringBuilder("AggregateException occurred with the following errors:");
+            for (Exception innerException : e.getExceptions()) {
+                errorMessage.append("\n").append(innerException.getMessage());
+            }
+            fail(errorMessage.toString());
         } catch (MyException e) {
-            // If a MyException occurs, it indicates that the test data is in the wrong format.
             fail("MyException occurred: " + e.getMessage());
         }
     }
+
+
+
+
 
     /**
      * Test case for retrieving passenger information in FlightCheckInSystem.
@@ -51,6 +60,8 @@ public class FlightCheckInSystemTest {
             assertNull(nonExistentPassenger);
         } catch (IOException e) {
             fail("IOException occurred while reading test data.");
+        } catch (MyException e) {
+        	fail("MyException occurred: " + e.getMessage());
         }
     }
 
@@ -73,9 +84,14 @@ public class FlightCheckInSystemTest {
             assertNull(nonExistentFlight);
         } catch (IOException e) {
             fail("IOException occurred while reading test data.");
-        } catch (MyException e) {
-            // If a MyException occurs, it indicates that the test data was formatted incorrectly
-            fail("MyException occurred: " + e.getMessage());
+        } catch (AggregateException e) {
+            StringBuilder errorMessage = new StringBuilder("AggregateException occurred with the following errors:");
+            for (Exception innerException : e.getExceptions()) {
+                errorMessage.append("\n").append(innerException.getMessage());
+            }
+            fail(errorMessage.toString());
         }
     }
+
+
 }
