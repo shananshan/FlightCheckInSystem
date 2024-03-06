@@ -15,15 +15,43 @@ public class FlightCheckInSystem {
     static List<Passenger> passengerList;
     List<Flight> flightList;
 
-    public void readFlights(String csvFilePath) throws IOException, MyException{
+    public void readFlights(String csvFilePath) throws IOException, AggregateException {
         BufferedReader reader = new BufferedReader(new FileReader(csvFilePath));
-        String line = reader.readLine();
+        String line = reader.readLine(); // Assume the first line contains headers and skip it
+        AggregateException aggregateException = new AggregateException("Multiple errors occurred while reading flight details.");
+
         while ((line = reader.readLine()) != null) {
             String[] data = line.split(",");
-            validateFlightCodeFormat(data[0]);
-            flightList.add(new Flight(data));
+            boolean lineHasError = false;
+
+            // Check for correct column count
+            if (data.length != 13) {
+                aggregateException.addException(new MyException("Expected 13 columns, but found " + data.length));
+                lineHasError = true;
+            }
+
+            // Validate flightCode format if column count is correct or independently
+            if (!lineHasError || data.length >= 1) { // Ensure there's at least one column to check the flightCode
+                try {
+                    validateFlightCodeFormat(data[0]);
+                } catch (MyException e) {
+                    aggregateException.addException(e);
+                    lineHasError = true;
+                }
+            }
+
+            // Process the data if no error for this line
+            if (!lineHasError) {
+                flightList.add(new Flight(data));
+            }
+        }
+
+        // After processing all lines, check if there were any errors collected
+        if (aggregateException.hasExceptions()) {
+            throw aggregateException;
         }
     }
+
 
     void validateFlightCodeFormat(String code) throws MyException {
         // Check the format of flightCode
@@ -32,11 +60,14 @@ public class FlightCheckInSystem {
         }
     }
     
-    public void readPassengers(String csvFilePath) throws IOException {
+    public void readPassengers(String csvFilePath) throws IOException, MyException {
         BufferedReader reader = new BufferedReader(new FileReader(csvFilePath));
-        String line = reader.readLine();
+        String line = reader.readLine(); // Assume the first line contains headers and skip it
         while ((line = reader.readLine()) != null) {
             String[] data = line.split(",");
+            if (data.length != 5) { // Expected column count for Passenger Bookings CSV
+                throw new MyException("Passenger Bookings CSV file format error: Expected 5 columns, but found " + data.length);
+            }
             passengerList.add(new Passenger(data));
         }
     }
@@ -68,7 +99,7 @@ public class FlightCheckInSystem {
     void validateBookingCodeFormat(String code) throws MyException {
         // Ensure the booking code follows the format "AB-123456"
         if (!code.matches("^[A-Z]{2}-\\d{6}$")) {
-            throw new MyException("Invalid booking code format. Please use the format 'AB-123456'.");
+            throw new MyException("Invalid booking code format. Please use the format 'AB-123456'.This line of error information will not be stored.");
         }
     }
 
