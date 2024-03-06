@@ -22,7 +22,7 @@ public class CheckInGUI extends JFrame {
     private FlightCheckInSystem fcs = new FlightCheckInSystem();
     public static String[] checkinInfoS = new String[3];
     public static Double[] checkinInfoD = new Double[3];
-    ArrayList checkinpassengerList = new ArrayList<>();
+    ArrayList checkinpassengerList = new ArrayList<>(); // store all the checked passenger
     
     public CheckInGUI() throws IOException {
         initializeUI();
@@ -337,8 +337,11 @@ public class CheckInGUI extends JFrame {
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, "Please enter valid numbers for baggage dimensions and weight!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+                // Add information about passengers who have successfully paid to checkinpassengerList
                 CheckInPassenger cp = new CheckInPassenger(checkinInfoS[0], checkinInfoS[1], checkinInfoS[2], checkinInfoD[0], checkinInfoD[1], checkinInfoD[2]);
+                // Add cp to checked list
                 checkinpassengerList.add(cp);
+                // generate report
                 Report report = new Report(checkinpassengerList);
                 report.generateReport("report.txt");
                 break;
