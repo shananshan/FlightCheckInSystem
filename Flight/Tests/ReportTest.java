@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * The ReportTest class contains unit tests for the Report class.
  */
-public class ReportTest {
+public class ReportTest throws MyException {
     /**
      * Tests the generation of a flight report using the Report class.
      * Checks if the report is generated successfully based on provided check-in passenger data.
