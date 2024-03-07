@@ -290,8 +290,7 @@ public class CheckInGUI extends JFrame {
                     checkinInfoD[0] = wi*h*l;
                     checkinInfoD[1] = w;
                     checkinInfoD[2] = fee;
-                    System.out.println(checkinInfoD[0]);
-                    if(fee > 0) {                  
+                    if(fee > 0) {
                        switchButton.setText("Pay");
                        cardLayout.show(cardPanel, "Card4");
                         
