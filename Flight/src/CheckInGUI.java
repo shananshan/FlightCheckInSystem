@@ -256,8 +256,8 @@ public class CheckInGUI extends JFrame {
                 fname.setText("Full Name: " + p.name);
                 fcode.setText("Flight Code: " + p.flightCode);
                 fbcode.setText("Booking Code: " + p.bookingRefCode);
-                checkinInfoS[0] = p.name;
-                checkinInfoS[1] = p.flightCode;
+                checkinInfoS[0] = p.flightCode;
+                checkinInfoS[1] = p.name;
                 checkinInfoS[2] = textField2.getText();
                 cardLayout.show(cardPanel, "Card2");
                 switchButton.setText("Submit Baggage Info");
