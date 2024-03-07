@@ -5,13 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * The ReportTest class contains unit tests for the Report class.
  */
-public class ReportTest throws MyException {
+public class ReportTest {
     /**
      * Tests the generation of a flight report using the Report class.
      * Checks if the report is generated successfully based on provided check-in passenger data.
+     * @throws MyException 
      */
     @Test
-    public void testReport() {
+    public void testReport() throws MyException {
         // Create a list of CheckInPassenger objects for testing
         ArrayList<CheckInPassenger> checkInPas = new ArrayList<>();
         CheckInPassenger pas1 = new CheckInPassenger("PA-5723", "ZOE", "PA-108489", 230, 30, 100);
