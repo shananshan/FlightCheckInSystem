@@ -26,7 +26,7 @@ public class FlightCheckInSystem {
 
             // Check for correct column count
             if (data.length != 13) {
-                aggregateException.addException(new MyException("Expected 13 columns, but found " + data.length));
+                aggregateException.addException(new MyException("Flight Details.csv was expected to have 13 columns, but found " + data.length));
                 lineHasError = true;
             }
 
@@ -56,7 +56,7 @@ public class FlightCheckInSystem {
     void validateFlightCodeFormat(String code) throws MyException {
         // Check the format of flightCode
         if (!code.matches("^[A-Z]{2}-\\d{4}$")) {
-            throw new MyException("Invalid flightCode format: " + code + ". Please use the format 'AA-1234'.");
+            throw new MyException("Invalid flightCode format: " + code + ". Please use the format 'XX-1234'.");
         }
     }
     
@@ -96,7 +96,7 @@ public class FlightCheckInSystem {
     void validateBookingCodeFormat(String code) throws MyException {
         // Ensure the booking code follows the format "AB-123456"
         if (!code.matches("^[A-Z]{2}-\\d{6}$")) {
-            throw new MyException("Invalid booking code format. Please use the format 'AB-123456'.This line of error information will not be stored.");
+            throw new MyException("Invalid booking code format. Please use the format 'XX-123456'.This line of error information will not be stored.");
         }
     }
 
