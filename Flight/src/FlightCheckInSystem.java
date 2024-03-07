@@ -65,9 +65,6 @@ public class FlightCheckInSystem {
         String line = reader.readLine(); // Assume the first line contains headers and skip it
         while ((line = reader.readLine()) != null) {
             String[] data = line.split(",");
-            if (data.length != 5) { // Expected column count for Passenger Bookings CSV
-                throw new MyException("Passenger Bookings CSV file format error: Expected 5 columns, but found " + data.length);
-            }
             passengerList.add(new Passenger(data));
         }
     }
