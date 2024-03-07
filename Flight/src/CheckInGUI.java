@@ -58,12 +58,16 @@ public class CheckInGUI extends JFrame {
             e.printStackTrace(); 
         } catch (MyException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+           
         } catch (AggregateException e) {
             StringBuilder errorMessage = new StringBuilder("Multiple errors occurred:");
             for (Exception innerException : e.getExceptions()) {
-                errorMessage.append("\n").append(innerException.getMessage());
+                errorMessage.append("\n").append(innerException.getMessage()); 
+                System.out.println(innerException.getMessage());
             }
-            JOptionPane.showMessageDialog(this, errorMessage.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+//            JOptionPane.showMessageDialog(this, errorMessage.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("A line with the wrong format was added to the CSV file for testing exception. \n"
+            		+ "This line will not be stored and will not affect operation");
         }
     }
 
@@ -269,15 +273,15 @@ public class CheckInGUI extends JFrame {
                 Flight f = fcs.getFlight(p.getFlightCode());
                 try {
                 	double w, h, l, wi;
-                    w = Double.valueOf(filedBags[0].getText()); //width
+                    w = Double.valueOf(filedBags[0].getText()); //weight
                     h = Double.valueOf(filedBags[1].getText());//height
                     l = Double.valueOf(filedBags[2].getText());//length
-                    wi = Double.valueOf(filedBags[3].getText());//weight
+                    wi = Double.valueOf(filedBags[3].getText());//width
                     double fee = f.calculateFee(wi,h,l,w); // calculate the fee need to pay 
                     labels[0].setText(name2[0] + ": " + p.name);
                     labels[1].setText(name2[1] + ": " + p.flightCode);
                     labels[2].setText(name2[2] + ": " + p.bookingRefCode);
-                    labels[3].setText(name2[3] + ": " + Double.toString(fee)+"£");
+                    labels[3].setText(name2[3] + ": £ " + Double.toString(fee));
                     if(filedBags[0].getText().isEmpty() && filedBags[1].getText().isEmpty() && filedBags[2].getText().isEmpty() && filedBags[3].getText().isEmpty()) {
                         JOptionPane.showMessageDialog(this, "Please enter valid numbers for baggage dimensions and weight!");
                         return;
@@ -364,3 +368,4 @@ public class CheckInGUI extends JFrame {
     }
 
 }
+
