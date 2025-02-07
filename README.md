@@ -1,4 +1,7 @@
 # F21AS-FlightCheckInSystem_G15
+
+## If you find this deposite useful, give it a star!! Yeeeeeeeaaaaaaaah
+
 ## Introduction
 * graphical and textual instruction interface of the check-in process on check-in kiosk. The first stage focuses on foundational elements such as loading passenger bookings, providing a user interface for check-in, and generating summary report.  This project uses iterative development, data structures, exception handling, and unit testing from we learned in courses. 
 
